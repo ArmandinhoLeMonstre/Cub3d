@@ -9,7 +9,7 @@ RM = rm -rf
 SRC_DIR = src/
 OBJ_DIR = obj/
 
-SRC_FILES = main 
+SRC_FILES = main player keyhook
 
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
@@ -20,7 +20,7 @@ all : $(NAME)
 
 $(NAME): $(OBJ)
 	@echo "\033[0;33m\nCOMPILING cub3d...\n"
-	$(CC) $(OBJ) -fsanitize=address -g -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 	@echo "\033[1;32mcub3d created\n"
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
