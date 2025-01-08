@@ -6,7 +6,7 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:56:45 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/07 16:00:23 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/08 20:22:00 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,25 @@
 #include <stdio.h>
 #include <math.h>
 
-#define PI 3,14159265359
+#define PI 3.14159265359
+#define CUBE 64
+#define LEFT 65361
+#define RIGHT 65363
 
 
 typedef struct	s_player
 {
 	float	x;
 	float	y;
+	float	angle;
+	
 	int	p_up;
 	int	p_dw;
 	int	p_lf;
 	int	p_rg;
+
+	int	left_r;
+	int	right_r;
 }				t_player;
 
 typedef struct	s_data 
@@ -34,6 +42,7 @@ typedef struct	s_data
 	void	*mlx;
 	void	*mlx_win;
 	void	*img;
+	char	**map;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
