@@ -6,7 +6,7 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:56:45 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/08 20:22:00 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/09 15:52:01 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <stdio.h>
 #include <math.h>
 
+#define WIDTH 1920
+#define HEIGHT 1080
 #define PI 3.14159265359
 #define CUBE 64
 #define LEFT 65361

@@ -6,7 +6,7 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:48:07 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/08 21:09:07 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:44:23 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	int index;
 
-	if(x >= 1920 || y >= 1080 || x < 0 || y < 0)
+	if(x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
         return;
 	index = (y *  data->line_length) + x * (data->bits_per_pixel / 8);
 	data->addr[index] = color & 0xFF;
@@ -30,7 +30,7 @@ int	draw_player(int x, int y, int size, t_data *data)
 
 	color = 0x00FF00;
 	i = 0;
-	if(x >= 1920 || y >= 1080 || x < 0 || y < 0)
+	if(x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
         return (0);
 	while (i < size)
 	{
@@ -65,10 +65,10 @@ void	clear_image(t_data *data)
 
 	y = 0;
 	x = 0;
-	while (y < 1080)
+	while (y < HEIGHT)
 	{
 		x = 0;
-		while (x < 1920)
+		while (x < WIDTH)
 		{
 			my_mlx_pixel_put(data, x, y, 0);
 			x++;
@@ -91,8 +91,8 @@ void	draw_map(t_data *data)
 		x = 0;
 		while (map[y][x])
 		{
-			if (map[y][x] == '1')
-				draw_player(x * CUBE, y * CUBE, CUBE, data);
+			// if (map[y][x] == '1')
+			// 	draw_player(x * CUBE, y * CUBE, CUBE, data);
 			x++;
 		}
 		y++;
@@ -112,12 +112,30 @@ int	touch(float px, float py, t_data *data)
 	return (0);
 }
 
+float distance(float x, float y)
+{
+    return sqrt(x * x + y * y);
+}
+
+float fixed_dist(float x1, float y1, float x2, float y2, t_data *data)
+{
+    float delta_x = x2 - x1;
+    float delta_y = y2 - y1;
+    float angle = atan2(delta_y, delta_x) - data->player->angle;
+    float fix_dist = distance(delta_x, delta_y) * cos(angle);
+    return fix_dist;
+}
+
 void	draw_line(t_player *player, t_data *data, float start_x, int i)
 {
 	float	ray_x;
 	float	ray_y;
 	float	cos_angle;
 	float	sin_angle;
+	float dist;
+	float height;
+	int start_y;
+	int	end;
 
 	if (i == -23)
 		return ;
@@ -127,9 +145,18 @@ void	draw_line(t_player *player, t_data *data, float start_x, int i)
 	sin_angle = sin(start_x);
 	while (!touch(ray_x, ray_y, data))
 	{
-		my_mlx_pixel_put(data, ray_x, ray_y, 0xFF0000);
+		//my_mlx_pixel_put(data, ray_x, ray_y, 0xFF0000);
 		ray_x += cos_angle;
 		ray_y += sin_angle;
+	}
+	dist = fixed_dist(player->x, player->y, ray_x, ray_y, data);
+	height = (CUBE / dist) * (WIDTH / 2);
+	start_y = (HEIGHT - height) / 2;
+	end = start_y + height;
+	while (start_y < end)
+	{
+		my_mlx_pixel_put(data, i, start_y, 0xFF0000);
+		start_y++;
 	}
 }
 
@@ -140,14 +167,14 @@ int	draw_loop(t_data *data)
     float start_x;
     int i;
 	
-	fraction = PI / 3 / 1080;
+	fraction = PI / 3 / HEIGHT;
 	start_x = player->angle - PI / 6;
 	i = 0;
 	move_player(player);
 	clear_image(data);
-	draw_player((player->x), (player->y), 10, data);
-	draw_map(data);
-    while(i < 1080)
+	//draw_player((player->x), (player->y), 10, data);
+	//draw_map(data);
+    while(i < HEIGHT)
     {
         draw_line(player, data, start_x, i);
         start_x += fraction;
@@ -189,8 +216,8 @@ int	main(void)
 	data.player = &player;
 	data.map = get_map();
 	data.mlx = mlx_init();
-	data.mlx_win = mlx_new_window(data.mlx, 1920, 1080, "Hello world!");
-	data.img = mlx_new_image(data.mlx, 1920, 1080);
+	data.mlx_win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "Hello world!");
+	data.img = mlx_new_image(data.mlx, WIDTH, HEIGHT);
 	data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length,
 								&data.endian);
 	mlx_put_image_to_window(data.mlx, data.mlx_win, data.img, 0, 0);

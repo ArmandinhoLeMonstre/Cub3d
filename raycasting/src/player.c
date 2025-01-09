@@ -6,7 +6,7 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 19:27:13 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/08 20:34:13 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:11:50 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	init_player(t_player *player)
 {
-	player->x = (1920 / 2);
-	player->y = (1080 / 2);
+	player->x = (WIDTH / 2);
+	player->y = (HEIGHT / 2);
 	player->angle = PI / 2;
 
 	player->p_up = 0;
@@ -34,7 +34,7 @@ void	move_player(t_player *player)
 	float sin_player;
 
 	movement = 3;
-	angle_speed = 0.1;
+	angle_speed = 0.03;
 	cos_player = cos(player->angle);
 	sin_player = sin(player->angle);
 	if(player->left_r == 1)
@@ -47,22 +47,22 @@ void	move_player(t_player *player)
 		player->angle = 2 * PI;
 	if(player->p_up == 1)
 	{
-		player->x -= cos_player * movement;
-        player->y -= sin_player * movement;
-	}
-	if(player->p_dw == 1)
-	{
 		player->x += cos_player * movement;
         player->y += sin_player * movement;	
 	}
-	if(player->p_lf == 1)
+	if(player->p_dw == 1)
 	{
-		player->x -= sin_player * movement;
-        player->y += cos_player * movement;
+		player->x -= cos_player * movement;
+        player->y -= sin_player * movement;
 	}
-	if(player->p_rg == 1)
+	if(player->p_lf == 1)
 	{
 		player->x += sin_player * movement;
         player->y -= cos_player * movement;
+	}
+	if(player->p_rg == 1)
+	{
+		player->x -= sin_player * movement;
+        player->y += cos_player * movement;
 	}
 }
