@@ -167,14 +167,14 @@ int	draw_loop(t_data *data)
     float start_x;
     int i;
 	
-	fraction = PI / 3 / HEIGHT;
+	fraction = PI / 3 / WIDTH;
 	start_x = player->angle - PI / 6;
 	i = 0;
 	move_player(player);
 	clear_image(data);
 	//draw_player((player->x), (player->y), 10, data);
 	//draw_map(data);
-    while(i < HEIGHT)
+    while(i < WIDTH)
     {
         draw_line(player, data, start_x, i);
         start_x += fraction;
