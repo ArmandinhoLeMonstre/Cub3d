@@ -214,12 +214,14 @@ int	main(void)
 
 	init_player(&player);
 	data.player = &player;
+	data.relative_path = "raycasting/src/test.xpm";
 	data.map = get_map();
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "Hello world!");
 	data.img = mlx_new_image(data.mlx, WIDTH, HEIGHT);
 	data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length,
 								&data.endian);
+	data.test = mlx_xpm_file_to_image(data.mlx, data.relative_path, &data.img_width, &data.img_height);
 	mlx_put_image_to_window(data.mlx, data.mlx_win, data.img, 0, 0);
 	mlx_hook(data.mlx_win, 2, 1L<<0, key_true, &player);
 	mlx_hook(data.mlx_win, 3, 1L<<1, key_false, &player);

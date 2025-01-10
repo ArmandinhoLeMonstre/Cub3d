@@ -44,10 +44,12 @@ typedef struct	s_data
 	void	*mlx;
 	void	*mlx_win;
 	void	*img;
+	void	*test;
 	char	**map;
 	char	*addr;
-
-	
+	int		img_width;
+	int		img_height;
+	char	*relative_path;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;

@@ -33,8 +33,8 @@ void	move_player(t_player *player)
 	float cos_player;
 	float sin_player;
 
-	movement = 3;
-	angle_speed = 0.03;
+	movement = 2;
+	angle_speed = 0.02;
 	cos_player = cos(player->angle);
 	sin_player = sin(player->angle);
 	if(player->left_r == 1)
