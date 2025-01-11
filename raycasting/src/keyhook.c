@@ -6,7 +6,7 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 19:27:10 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/08 20:23:33 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/11 15:21:58 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	key_true(int keycode, t_player *player)
 {
-	printf("%d\n", keycode);
+	//printf("%d\n", keycode);
 	if (keycode == 119)
 		player->p_up = 1;
 	if (keycode == 115)

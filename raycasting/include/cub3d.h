@@ -6,7 +6,7 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:56:45 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/09 15:52:01 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/11 15:20:49 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,13 @@ typedef struct	s_data
 }				t_data;
 
 void	init_player(t_player *player);
+
+
+//Draw && Draw_utils
+int	draw_loop(t_data *data);
+float fixed_dist(float x1, float y1, float x2, float y2, t_data *data);
+float distance(float x, float y);
+int	touch(float px, float py, t_data *data);
 
 //Key hook
 int	key_false(int keycode, t_player *player);
