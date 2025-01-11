@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:43:45 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/08 21:32:01 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/09 21:12:06 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,17 @@ typedef struct s_mlx
 	void	*win;
 }	t_mlx;
 
+typedef struct s_mdata
+{
+	int	bool_id;
+	int	s_line;
+	int	lin;
+	int	col;
+}	t_mapdata;
+
 typedef struct s_game
 {
 	t_mlx		mlx;
 	t_sprites	sprites;
+	t_mapdata	mdata;
 }	t_game;

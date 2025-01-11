@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:43:58 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/08 21:33:47 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/09 23:14:15 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,46 @@ void	ft_error(char *str)
 {
 	ft_putstr_fd(str, 2);
 	exit(EXIT_FAILURE);
+}
+
+void ft_freeall(t_game *game)
+{
+	free(game->sprites.floor);
+	free(game->sprites.ceiling);
+	mlx_destroy_image(game->mlx.mlx, game->sprites.north);
+	mlx_destroy_image(game->mlx.mlx, game->sprites.west);
+	mlx_destroy_image(game->mlx.mlx, game->sprites.east);
+	mlx_destroy_image(game->mlx.mlx, game->sprites.south);
+	mlx_destroy_window(game->mlx.mlx, game->mlx.win);
+	mlx_destroy_display(game->mlx.mlx);
+	free(game->mlx.mlx);
+}
+
+long	ft_atorgb(char *str)
+{
+	int		i;
+	long	num;
+	int		len;
+
+	i = -1;
+	while (ft_isspace(str[++i]))
+		;
+	if (!ft_isdigit(str[i]) && str[i] != '+')
+		ft_error("Error\nInvalid RBG value\n");
+	num = 0;
+	len = 0;
+	if (str[i] == '+')
+		i++;
+	while (ft_isdigit(str[i]))
+	{
+		++len;
+		num = (num * 10) + (str[i++] - '0');
+	}
+	// if (str[i] != 0)
+	// 	ft_error("Error\nInvalid RBG value\n");
+	if (num > 255 || len > 10)
+		ft_error("Error\nInvalid RBG value\n");
+	return (num);
 }
 
 int	ft_open(char *file)
@@ -43,7 +83,8 @@ void	ft_setid(char *str, int len, t_game *game, int id)
 		ft_error("Error\nInvalid identifier\n");
 	dup = ft_strdup(str);
 	dup[len] = 0;
-	ptr= mlx_xpm_file_to_image(game->mlx.mlx, dup, &img_width, &img_height);
+	ptr = mlx_xpm_file_to_image(game->mlx.mlx, dup, &img_width, &img_height);
+	free(dup);
 	if (!ptr)
 		ft_error("Error\nFail xpm to img\n");
 	if (id == 0)
@@ -54,7 +95,6 @@ void	ft_setid(char *str, int len, t_game *game, int id)
 		game->sprites.east = ptr;
 	else if (id == 3)
 		game->sprites.west = ptr;
-	free(dup);
 }
 
 void	ft_checkrgb(char *str, int len)
@@ -96,23 +136,22 @@ void	ft_setcolor(char *str, int len, t_game *game, int id)
 	if (!rgb)
 		ft_error("Error\nMalloc");
 	i = -1;
-	while (++i < len)
+	if (++i < len)
 	{
-		if (!ft_isdigit(str[i]))
-			ft_error("Error\nInvalid identifier\n");
+		rgb[0] = (int) ft_atorgb(&str[i]);
 		while (ft_isdigit(str[i]))
 			i++;
-		if (str[i++] != ',' || !ft_isdigit(str[i]))
-			ft_error("Error\nInvalid identifier\n");
+		rgb[1] = (int) ft_atorgb(&str[++i]);
 		while (ft_isdigit(str[i]))
 			i++;
-		if (str[i++] != ',' || !ft_isdigit(str[i]))
-			ft_error("Error\nInvalid identifierdd\n");
+		rgb[2] = (int) ft_atorgb(&str[++i]);
 		while (ft_isdigit(str[i]))
 			i++;
-		if (str[i] && !ft_isspace(str[i]))
-			ft_error("Error\nInvalid identifier\n");
 	}
+	if (id == 4)
+		game->sprites.floor = rgb;
+	else if (id == 5)
+		game->sprites.ceiling = rgb;
 }
 
 void	ft_getidentifier(char *str, t_game *game, int id)
@@ -138,8 +177,6 @@ void	ft_getidentifier(char *str, t_game *game, int id)
 	}
 }
 
-
-
 void	ft_getinfo(char *str, t_game *game)
 {
 	int	i;
@@ -147,22 +184,23 @@ void	ft_getinfo(char *str, t_game *game)
 	i = -1;
 	while (ft_isspace(str[++i]))
 		;
+	printf("str : %s\n", str);
 	if (str[i] && str[i + 1])
 	{
-		if (str[i] == 'N' && str[i + 1] == 'O')
+		if (str[i] == 'N' && str[i + 1] == 'O' && !game->sprites.north)
 			ft_getidentifier(&str[i + 2], game, 0);
-		else if (str[i] == 'S' && str[i + 1] == 'O')
+		else if (str[i] == 'S' && str[i + 1] == 'O' && !game->sprites.south)
 			ft_getidentifier(&str[i + 2], game, 1);
-		else if (str[i] == 'E' && str[i + 1] == 'A')
+		else if (str[i] == 'E' && str[i + 1] == 'A' && !game->sprites.east)
 			ft_getidentifier(&str[i + 2], game, 2);
-		else if (str[i] == 'W' && str[i + 1] == 'E')
+		else if (str[i] == 'W' && str[i + 1] == 'E' && !game->sprites.west)
 			ft_getidentifier(&str[i + 2], game, 3);
-		else if (str[i] == 'F')
+		else if (str[i] == 'F' && !game->sprites.floor)
 			ft_getidentifier(&str[i + 1], game, 4);
-		else if (str[i] == 'C')
+		else if (str[i] == 'C' && !game->sprites.ceiling)
 			ft_getidentifier(&str[i + 1], game, 5);
 		else
-			ft_error("Error\nInvalid identifier\n");
+			ft_error("Error\nInvalid identifierff\n");
 	}
 }
 
@@ -180,54 +218,156 @@ void	ft_init_ptr(t_game *game)
 void	gameloop(t_game *game)
 {
 	mlx_put_image_to_window(game->mlx.mlx, game->mlx.win, game->sprites.north, 0, 0);
+	mlx_put_image_to_window(game->mlx.mlx, game->mlx.win, game->sprites.south, 64, 0);
+	mlx_put_image_to_window(game->mlx.mlx, game->mlx.win, game->sprites.east, 64 * 2, 0);
+	mlx_put_image_to_window(game->mlx.mlx, game->mlx.win, game->sprites.west, 64 * 3, 0);
 	mlx_loop(game->mlx.mlx);
 }
 
-int main(int ac, char **av)
+void ft_init_pars(t_game *game)
 {
-	t_game game;
-
-	(void) ac;
-	// ft_init_ptr(&game);
-	ft_getinfo(av[1], &game);
-	// gameloop(&game);
+	game->sprites.floor = NULL;
+	game->sprites.ceiling = NULL;
+	game->sprites.north = NULL;
+	game->sprites.south = NULL;
+	game->sprites.east = NULL;
+	game->sprites.west = NULL;
+	game->mdata.bool_id = 0;
+	game->mdata.s_line = 1;
+	game->mdata.col = 0;
+	game->mdata.lin = 0;
 }
 
-// int	parsing(char *file, t_game *game)
-// {
-// 	int		fd;
-// 	char	*line;
+int	ft_emptyline(char **line, t_game *game, int fd)
+{
+	int		i;
+	char	*str;
 
-// 	fd = ft_open(file);
-// 	line = get_next_line(fd);
-// 	while (line)
-// 	{
-		
-// 		free(line);
-// 	}
-// }
+	str = *line;
+	while (str)
+	{
+		i = -1;
+		while (str[++i] && ft_isspace(str[i]))
+			;
+		if (str[i] != 0)
+		{
+			if (str[i] != '1')
+				return (free(str), 1);
+			break ;
+		}
+		free(str);
+		game->mdata.s_line++;
+		str = get_next_line(fd);
+	}
+	*line = str;
+	return (0);
+}
 
-// int	check_filetype(char *file)
-// {
-// 	if ((file[ft_strlen(file) - 1] == 'b') && (file[ft_strlen(file) - 2] == 'u')
-// 		&& (file[ft_strlen(file) - 3] == 'c')
-// 		&& (file[ft_strlen(file) - 4] == '.'))
-// 		return (1);
-// 	else
-// 	{
-// 		ft_putstr_fd("Error\nWrong type of file\n", 2);
-// 		exit(1);
-// 	}
-// 	return (0);
-// }
+int ft_checkeof(char *str, int fd)
+{
+	int	i;
 
-// int	main(int ac, char **av)
-// {
-// 	t_game	game;
+	i = -1;
+	while (str)
+	{
+		i = -1;
+		while (str[++i] && ft_isspace(str[i]))
+			;
+		if (str[i] != 0)
+			return (free(str), 1);
+		free(str);
+		str = get_next_line(fd);
+	}
+	return (0);
+}
 
-// 	if (ac == 2)
-// 	{
-// 		check_filetype(av[1]);
-// 		parsing(av[1], &game);
-// 	}
-// }
+int	ft_mapchar(t_game *game, char *str, int fd)
+{
+	int	i;
+
+	i = -1;
+	while (str)
+	{
+		i = -1;
+		while (str[++i] && ft_isspace(str[i]))
+			;
+		if (str[i] == 0)
+			break ;
+		i = -1;
+		while (str[++i] && (ft_isspace(str[i]) || str[i] == '0' || str[i] == '1'
+				|| str[i] == 'N' || str[i] == 'S'
+				|| str[i] == 'W' || str[i] == 'E'))
+				;
+		if (str[i] && str[i] != '\n')
+			return (free(str), 1);
+		game->mdata.lin++;
+		if ((int) ft_strlen(str) > game->mdata.col)
+			game->mdata.col = ft_strlen(str);
+		free(str);
+		str = get_next_line(fd);
+	}
+	printf("ligne : %d | col : %d\n", game->mdata.lin, game->mdata.col);
+	return (ft_checkeof(str, fd));
+}
+
+void ft_mapinfo(int fd, t_game *game, char *str)
+{
+	if (ft_emptyline(&str, game, fd) || ft_mapchar(game, str, fd))
+	{
+		ft_freeall(game);
+		ft_error("Error\nInvalid map\n");
+	}
+	printf("line : %s | ligne : %d\n", str, game->mdata.s_line);
+	// free(str);
+}
+
+void	parsing(char *file, t_game *game)
+{
+	int			fd;
+	char		*line;
+	t_sprites	*sprites;
+
+	fd = ft_open(file);
+	ft_init_pars(game);
+	line = get_next_line(fd);
+	sprites = &game->sprites;
+	while (line && !game->mdata.bool_id)
+	{
+		ft_getinfo(line, game);
+		free(line);
+		line = get_next_line(fd);
+		if (sprites->ceiling && sprites->floor && sprites->north
+			&& sprites->south && sprites->east && sprites->west)
+			game->mdata.bool_id = 1;
+		game->mdata.s_line++;
+	}
+	ft_mapinfo(fd, game, line);
+}
+
+int	check_filetype(char *file)
+{
+	if ((file[ft_strlen(file) - 1] == 'b') && (file[ft_strlen(file) - 2] == 'u')
+		&& (file[ft_strlen(file) - 3] == 'c')
+		&& (file[ft_strlen(file) - 4] == '.'))
+		return (1);
+	else
+	{
+		ft_putstr_fd("Error\nWrong type of file\n", 2);
+		exit(1);
+	}
+	return (0);
+}
+
+int	main(int ac, char **av)
+{
+	t_game	game;
+
+	if (ac == 2)
+	{
+		check_filetype(av[1]);
+		ft_init_ptr(&game);
+		parsing(av[1], &game);
+		// gameloop(&game);
+		ft_freeall(&game);
+	}
+}
