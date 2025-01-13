@@ -6,7 +6,7 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:17:09 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/13 00:02:50 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/13 21:40:58 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,10 @@ void	draw_line(t_player *player, t_data *data, float start_x, int i)
 	}
 	end = start_y + height;
 	char *color;
-	color = ft_strchr(wall->pixels[z], '#');
-	printf("%s\n", color);
+	color = ft_strchr_g(wall->pixels[z], '#');
+	printf("1: %s\n", color);
+	int color2 = ft_atoi_base("FF00FF", "0123456789");
+	printf("2: %d\n", color2);
 	while (start_y < end)
 	{	
 		my_mlx_pixel_put(data, i, start_y, 0xFFFF00);

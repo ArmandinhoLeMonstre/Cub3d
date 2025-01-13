@@ -6,7 +6,7 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:56:45 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/12 22:51:30 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/13 21:35:02 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct	s_data
 }				t_data;
 
 void	init_player(t_player *player);
-
+int	ft_atoi_base(char *str, char *base);
 
 //Parse xpm
 int	parse_xpm(t_wall *wall, char **av);
