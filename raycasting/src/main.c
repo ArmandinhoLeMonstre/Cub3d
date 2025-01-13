@@ -6,7 +6,7 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:48:07 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/11 15:19:58 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/12 22:51:55 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,18 @@ char **get_map(void)
     return (map);
 }
 
-int	main(void)
+int	main(int ac, char **av)
 {
 	t_data	data;
 	t_player	player;
-
+	t_wall wall;
+	
+	(void)ac;
 	init_player(&player);
 	data.player = &player;
 	data.relative_path = "raycasting/src/test.xpm";
+	parse_xpm(&wall, av);
+	data.wall = &wall;
 	data.map = get_map();
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "Hello world!");

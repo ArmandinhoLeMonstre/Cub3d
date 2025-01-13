@@ -11,7 +11,7 @@ RM = rm -rf
 SRC_DIR = src/
 OBJ_DIR = obj/
 
-SRC_FILES = main player keyhook draw draw_utils
+SRC_FILES = main player keyhook draw draw_utils parse_xpm
 
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
@@ -36,8 +36,10 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 
 clean :
 	$(RM) $(OBJ_DIR)
+	$(RM) ./libft/*.o
 
 fclean : clean
 	$(RM) $(NAME) $(LIBFT)
+	$(RM) ./libft/libft.a
 
 re : fclean all

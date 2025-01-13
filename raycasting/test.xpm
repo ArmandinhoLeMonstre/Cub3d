@@ -2,12 +2,11 @@
 static char *simple_texture[] = {
 /* width height num_colors chars_per_pixel */
 "64 64 5 1",
-/* colors */
-"  c #FF0000", /* Red */
-". c #00FF00", /* Green */
-"X c #0000FF", /* Blue */
-"o c #FFFF00", /* Yellow */
-"+ c #FFFFFF", /* White */
+"  c #FF0000"
+". c #00FF00"
+"X c #0000FF"
+"o c #FFFF00"
+"+ c #FFFFFF"
 /* pixels */
 "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
 "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
@@ -34,6 +33,7 @@ static char *simple_texture[] = {
 "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
 "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
 "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
+"oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
 "oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
 "oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
 "oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",

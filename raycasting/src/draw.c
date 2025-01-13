@@ -6,7 +6,7 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:17:09 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/11 15:19:47 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/13 00:02:50 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	int index;
 
+	//printf("%d\n", color);
 	if(x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
         return;
 	index = (y *  data->line_length) + x * (data->bits_per_pixel / 8);
@@ -53,9 +54,11 @@ void	draw_line(t_player *player, t_data *data, float start_x, int i)
 	float height;
 	int start_y;
 	int	end;
+	t_wall *wall;
 
 	if (i == -23)
 		return ;
+	wall = data->wall;
 	ray_x = player->x;
 	ray_y = player->y;
 	cos_angle = cos(start_x);
@@ -69,10 +72,18 @@ void	draw_line(t_player *player, t_data *data, float start_x, int i)
 	dist = fixed_dist(player->x, player->y, ray_x, ray_y, data);
 	height = (CUBE / dist) * (WIDTH / 2);
 	start_y = (HEIGHT - height) / 2;
-	end = start_y + height;
-	while (start_y < end)
+	int z = 0;
+	while (ft_strncmp(wall->wall[0], wall->pixels[z], 1) != 0)
 	{
-		my_mlx_pixel_put(data, i, start_y, 0xFF0000);
+		z++;
+	}
+	end = start_y + height;
+	char *color;
+	color = ft_strchr(wall->pixels[z], '#');
+	printf("%s\n", color);
+	while (start_y < end)
+	{	
+		my_mlx_pixel_put(data, i, start_y, 0xFFFF00);
 		start_y++;
 	}
 }

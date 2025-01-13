@@ -6,11 +6,13 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:56:45 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/11 15:20:49 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/12 22:51:30 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mlx_linux/mlx.h"
+# include "../libft/libft.h"
+#include <fcntl.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -22,6 +24,14 @@
 #define LEFT 65361
 #define RIGHT 65363
 
+
+typedef struct	s_wall
+{
+	int	x;
+	int	y;
+	char **pixels;
+	char **wall;
+}				t_wall;
 
 typedef struct	s_player
 {
@@ -41,6 +51,7 @@ typedef struct	s_player
 typedef struct	s_data 
 {
 	t_player	*player;
+	t_wall		*wall;
 	void	*mlx;
 	void	*mlx_win;
 	void	*img;
@@ -57,6 +68,9 @@ typedef struct	s_data
 
 void	init_player(t_player *player);
 
+
+//Parse xpm
+int	parse_xpm(t_wall *wall, char **av);
 
 //Draw && Draw_utils
 int	draw_loop(t_data *data);

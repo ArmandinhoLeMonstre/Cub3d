@@ -6,11 +6,31 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 16:15:01 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/11 15:12:20 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/12 18:40:18 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+char	*ft_strchr_g(const char *s, int c)
+{
+	int		i;
+	char	p;
+
+	i = 0;
+	p = c;
+	if (!s)
+		return (0);
+	while (s[i])
+	{
+		if (s[i] == p)
+			return ((char *) &s[i + 1]);
+		i++;
+	}
+	if (s[i] == p)
+		return ((char *) &s[i + 1]);
+	return (0);
+}
 
 char	*ft_fin(char *stash, int fd)
 {
@@ -19,7 +39,7 @@ char	*ft_fin(char *stash, int fd)
 
 	if (!stash)
 		return (NULL);
-	while (ft_strchr(stash, '\n') == 0)
+	while (ft_strchr_g(stash, '\n') == 0)
 	{
 		buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 		if (!buffer)
@@ -48,10 +68,10 @@ char	*ft_oneline(char *stash, char *res, int x)
 	if (!stash)
 		return (NULL);
 	i = 0;
-	if (ft_strchr(stash, '\n') || ft_strchr(stash, '\0'))
+	if (ft_strchr_g(stash, '\n') || ft_strchr_g(stash, '\0'))
 	{
-		if (ft_strchr(stash, '\n'))
-			x = ft_strlen(stash) - ft_strlen(ft_strchr(stash, '\n'));
+		if (ft_strchr_g(stash, '\n'))
+			x = ft_strlen(stash) - ft_strlen(ft_strchr_g(stash, '\n'));
 		else
 			x = ft_strlen(stash);
 		res = malloc((x + 1) * sizeof(char));
@@ -84,7 +104,7 @@ char	*get_next_line(int fd)
 	res = ft_oneline(stash, res, 0);
 	if (!res)
 		return (free(stash), stash = NULL, NULL);
-	temp = ft_strdup(ft_strchr(stash, '\n'));
+	temp = ft_strdup(ft_strchr_g(stash, '\n'));
 	free(stash);
 	if (temp == 0)
 		stash = NULL;
