@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 15:43:58 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/09 23:14:15 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/13 01:18:33 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,6 +278,7 @@ int ft_checkeof(char *str, int fd)
 		free(str);
 		str = get_next_line(fd);
 	}
+	close(fd);
 	return (0);
 }
 
@@ -306,19 +307,110 @@ int	ft_mapchar(t_game *game, char *str, int fd)
 		free(str);
 		str = get_next_line(fd);
 	}
-	printf("ligne : %d | col : %d\n", game->mdata.lin, game->mdata.col);
 	return (ft_checkeof(str, fd));
+}
+
+int ft_create_map(int fd, t_game *game)
+{
+	char	*str;
+	int		i;
+
+	i = -1;
+	str = get_next_line(fd);
+	while (++i < game->mdata.s_line - 1)
+	{
+		free(str);
+		str = get_next_line(fd);
+	}
+	game->mdata.map = malloc(sizeof(char *) * game->mdata.lin);
+	if (!game->mdata.map)
+		return (ft_freeall(game), 1);
+	i = -1;
+	while (++i < game->mdata.lin)
+	{
+		game->mdata.map[i] = calloc(sizeof(char), game->mdata.col + 1);
+		if (!game->mdata.map[i])
+			return (free(game->mdata.map), ft_freeall(game), 1);
+		ft_strlcpy(game->mdata.map[i], str, ft_strlen(str) + 1);
+		free(str);
+		str = get_next_line(fd);
+	}
+	return (close(fd), free(str), 0);
+}
+
+int	ft_backtrack(int x, int y, t_game * game, char **plan)
+{
+	if (plan[y][x] == '1')
+		return (0);
+	if (x < 0 || x >= game->mdata.col || y < 0 || y >= game->mdata.lin || plan[y][x] == ' ' || plan[y][x] == '\0')
+		return (1);
+	if (plan[y][x] == '0' || plan[y][x] == 'N' || plan[y][x] == 'S'
+			|| plan[y][x] == 'E' || plan[y][x] == 'W')
+	{
+		plan[y][x] = 'V';
+		if (ft_backtrack(x - 1, y, game, plan)
+			|| ft_backtrack(x + 1, y, game, plan)
+			|| ft_backtrack(x, y + 1, game, plan)
+			|| ft_backtrack(x, y - 1, game, plan))
+			return (1);
+	}
+	return (0);
+}
+
+int	ft_findo(char **map, t_game *game)
+{
+	int	y;
+	int	x;
+
+	y = -1;
+	while (++y < game->mdata.lin)
+	{
+		x = -1;
+		while (++x < game->mdata.col)
+		{
+			if (map[y][x] == '0')
+				return ((y * game->mdata.col) + x);
+		}
+	}
+	return (-1);
+}
+
+void	ft_freemap(char **map, t_game *game)
+{
+	int	i;
+
+	i = -1;
+	while (++i < game->mdata.lin)
+		free(map[i]);
+	free(map);
 }
 
 void ft_mapinfo(int fd, t_game *game, char *str)
 {
+	int	find;
+
 	if (ft_emptyline(&str, game, fd) || ft_mapchar(game, str, fd))
 	{
 		ft_freeall(game);
 		ft_error("Error\nInvalid map\n");
 	}
-	printf("line : %s | ligne : %d\n", str, game->mdata.s_line);
-	// free(str);
+	fd = ft_open(game->file);
+	if (ft_create_map(fd, game))
+		ft_error("Error\nMalloc\n");
+	find = ft_findo(game->mdata.map, game);
+	while (find != -1)
+	{
+		printf("find : %d\n", find);
+		if (ft_backtrack(find % game->mdata.col, find / game->mdata.col,
+				game, game->mdata.map))
+		{
+			ft_freemap(game->mdata.map, game);
+			ft_freeall(game);
+			ft_error("Error\nInvalid map\n");
+		}
+		find = ft_findo(game->mdata.map, game);
+	}
+	ft_freemap(game->mdata.map, game);
 }
 
 void	parsing(char *file, t_game *game)
@@ -365,6 +457,7 @@ int	main(int ac, char **av)
 	if (ac == 2)
 	{
 		check_filetype(av[1]);
+		game.file = av[1];
 		ft_init_ptr(&game);
 		parsing(av[1], &game);
 		// gameloop(&game);

@@ -1,4 +1,4 @@
-NO             /home/rafnasci/Projects/Cub3d/raycasting/assets/grass.xpm
+NO             assets/grass.xpm
 F 44,55,66
 
 
@@ -9,9 +9,9 @@ F 44,55,66
 
 
 
-SO           /home/rafnasci/Projects/Cub3d/raycasting/assets/hole.xpm
-EA               /home/rafnasci/Projects/Cub3d/raycasting/assets/tiplouf.xpm
-WE               /home/rafnasci/Projects/Cub3d/raycasting/assets/pokegrass.xpm 
+SO           assets/hole.xpm
+EA               assets/tiplouf.xpm
+WE               assets/pokegrass.xpm 
 
 
 
@@ -22,11 +22,17 @@ C 32,4,4
 
 
 
-	   		111111111111
-11111
-11100000
-1111N
-1111111S
-111W
-111E
-00000EEE
+        1111111111111111111111111
+        1000000000110000000000001
+        1011000001110000000000001
+		1001000000000000000001111
+111111111011000001110000000001001
+100000000011000001110111111111111
+11110111111111011100000010001
+11110111111111011101010010001
+11000000110101011100000010001
+10000000000000001100000010001
+10000000000000001101010010001
+1100000111010111 101111011111
+11110111 1110101 101111010001
+11111111 1111111 111111111111
