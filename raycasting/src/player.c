@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 19:27:13 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/11 17:57:55 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/14 00:32:56 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	move_player(t_player *player)
 	float cos_player;
 	float sin_player;
 
-	movement = 2;
-	angle_speed = 0.02;
+	movement = 5;
+	angle_speed = 0.03;
 	cos_player = cos(player->angle);
 	sin_player = sin(player->angle);
 	if(player->left_r == 1)

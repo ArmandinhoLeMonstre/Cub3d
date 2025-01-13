@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_xpm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:22:39 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/12 23:45:59 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/14 00:24:35 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,18 @@ int	check_pixels(char **pixel_data)
 
 int	get_pixels(int fd, int number, t_wall *wall)
 {
-	int i;
+	int		i;
+	char	*line;
 
 	i = 0;
-	wall->pixels = malloc(sizeof(char *) * number);
+	wall->col = malloc(sizeof(t_col) * number);
 	while (i < number)
 	{
-		wall->pixels[i] = get_next_line(fd);
-		wall->pixels[i] = ft_strtrim(wall->pixels[i], "\n");
-		wall->pixels[i] = ft_strtrim(wall->pixels[i], "\"");
-		printf("%s\n", wall->pixels[i]);
+		line = get_next_line(fd);
+		wall->col[i].c = line[1];
+		wall->col[i].id = ft_atoi_base(&line[6], "0123456789ABCDEF");
+		printf("%c | %d\n", wall->col[i].c, wall->col[i].id);
+		free(line);
 		i++;
 	}
 	return (0);
@@ -49,7 +51,7 @@ int	get_pixels(int fd, int number, t_wall *wall)
 int make_walls(int fd, int number, t_wall *wall)
 {
 	int i;
-	
+
 	i = 0;
 	get_pixels(fd, number, wall);
 	wall->wall = malloc(sizeof(char *) * 64);
@@ -73,20 +75,23 @@ int	parse_xpm(t_wall *wall, char **av)
 	int number;
 	int	i;
 	char *test;
-	
+
 	i = 0;
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 		perror("File error");
-	while (i < 4)
+	test = get_next_line(fd);
+	while (i < 3)
 	{
+		free(test);
 		test = get_next_line(fd);
 		i++;
 	}
 	pixel_data = ft_split(test, ' ');
 	number = check_pixels(pixel_data);
+	wall->info = number;
 	if (number == -1)
-		return (printf("Eroor"), 1);
+		return (printf("Error\n"), 1);
 	make_walls(fd, number, wall);
 	return (0);
 }

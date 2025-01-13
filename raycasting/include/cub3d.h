@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:56:45 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/13 21:35:02 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/14 00:23:55 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,37 @@
 #define RIGHT 65363
 
 
-typedef struct	s_wall
+typedef struct s_col
 {
-	int	x;
-	int	y;
-	char **pixels;
-	char **wall;
+	char	c;
+	int		id;
+}	t_col;
+
+typedef struct s_wall
+{
+	int		info;
+	int		x;
+	int		y;
+	t_col	*col;
+	char	**wall;
 }				t_wall;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	float	x;
 	float	y;
 	float	angle;
-	
-	int	p_up;
-	int	p_dw;
-	int	p_lf;
-	int	p_rg;
 
-	int	left_r;
-	int	right_r;
+	int		p_up;
+	int		p_dw;
+	int		p_lf;
+	int		p_rg;
+
+	int		left_r;
+	int		right_r;
 }				t_player;
 
-typedef struct	s_data 
+typedef struct s_data 
 {
 	t_player	*player;
 	t_wall		*wall;

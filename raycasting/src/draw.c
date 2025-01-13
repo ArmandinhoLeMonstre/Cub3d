@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:17:09 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/13 23:26:12 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/14 00:33:36 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,35 +75,22 @@ void draw_line(t_player *player, t_data *data, float start_angle, int i) {
         wall_x = fmod(ray_x, CUBE) / CUBE;
     }
     tex_x = (int)(wall_x * 64); // Assuming texture width is 64
-
-    // Draw the wall slice
     int y = start_y;
     while (y < end) {
-        // Calculate texture y-coordinate
         int d = y - start_y;
-        tex_y = (d * 64) / height; // Scale y to texture height (64)
-
-        // Fetch the character at the texture coordinate
-        char tex_char = wall->wall[tex_y][tex_x];
-
-        // Map the character to a color (e.g., '+' is white, 'o' is gray, '.' is black)
+        tex_y = (d * 64) / height;
         int color;
-        // if (tex_char == '+') color = 0xFFFFFF; // White
-        // else if (tex_char == 'o') color = 0x808080; // Gray
-        // else if (tex_char == '.') color = 0x000000; // Black
-        // else color = 0xFF00FF; // Magenta (unknown character)
-		color = 0xFF00FF;
+		color = 0;
 		int k = 0;
-		while (wall->pixels[k])
+		while (k < wall->info)
 		{
-			if (tex_char == wall->pixels[k][0])
+			if (wall->wall[tex_y][tex_x] == wall->col[k].c)
 			{
-				color = ft_atoi_base(ft_strchr_g(wall->pixels[k], '#'), "0123456789ABCDEF");
+				color = wall->col[k].id;
 				break ;
 			}
 			k++;
 		}
-        // Draw the pixel
         my_mlx_pixel_put(data, i, y, color);
         y++;
     }

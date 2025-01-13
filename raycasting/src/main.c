@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:48:07 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/13 23:54:15 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/14 00:27:33 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	main(int ac, char **av)
 	t_wall wall;
 	
 	(void)ac;
+	(void)data;
 	init_player(&player);
 	data.player = &player;
 	data.relative_path = "raycasting/src/test.xpm";
@@ -64,10 +65,10 @@ int	main(int ac, char **av)
 	data.test = mlx_xpm_file_to_image(data.mlx, data.relative_path, &data.img_width, &data.img_height);
 	//mlx_put_image_to_window(data.mlx, data.mlx_win, data.img, 0, 0);
 	test(&data, &player);
-	// mlx_hook(data.mlx_win, 2, 1L<<0, key_true, &player);
-	// mlx_hook(data.mlx_win, 3, 1L<<1, key_false, &player);
-	// mlx_loop_hook(data.mlx, draw_loop, &data);
-	// mlx_loop(data.mlx);
+	mlx_hook(data.mlx_win, 2, 1L<<0, key_true, &player);
+	mlx_hook(data.mlx_win, 3, 1L<<1, key_false, &player);
+	mlx_loop_hook(data.mlx, draw_loop, &data);
+	mlx_loop(data.mlx);
 	return (0);
 }
 
