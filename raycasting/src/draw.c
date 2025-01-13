@@ -6,7 +6,7 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:17:09 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/13 21:40:58 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/13 23:26:12 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,51 +44,73 @@ void	clear_image(t_data *data)
 	}
 }
 
-void	draw_line(t_player *player, t_data *data, float start_x, int i)
-{
-	float	ray_x;
-	float	ray_y;
-	float	cos_angle;
-	float	sin_angle;
-	float dist;
-	float height;
-	int start_y;
-	int	end;
-	t_wall *wall;
+void draw_line(t_player *player, t_data *data, float start_angle, int i) {
+    float ray_x, ray_y, cos_angle, sin_angle, dist, height;
+    int start_y, end, tex_x, tex_y;
+    t_wall *wall = data->wall;
 
-	if (i == -23)
-		return ;
-	wall = data->wall;
-	ray_x = player->x;
-	ray_y = player->y;
-	cos_angle = cos(start_x);
-	sin_angle = sin(start_x);
-	while (!touch(ray_x, ray_y, data))
-	{
-		//my_mlx_pixel_put(data, ray_x, ray_y, 0xFF0000);
-		ray_x += cos_angle;
-		ray_y += sin_angle;
-	}
-	dist = fixed_dist(player->x, player->y, ray_x, ray_y, data);
-	height = (CUBE / dist) * (WIDTH / 2);
-	start_y = (HEIGHT - height) / 2;
-	int z = 0;
-	while (ft_strncmp(wall->wall[0], wall->pixels[z], 1) != 0)
-	{
-		z++;
-	}
-	end = start_y + height;
-	char *color;
-	color = ft_strchr_g(wall->pixels[z], '#');
-	printf("1: %s\n", color);
-	int color2 = ft_atoi_base("FF00FF", "0123456789");
-	printf("2: %d\n", color2);
-	while (start_y < end)
-	{	
-		my_mlx_pixel_put(data, i, start_y, 0xFFFF00);
-		start_y++;
-	}
+    // Initialize ray
+    ray_x = player->x;
+    ray_y = player->y;
+    cos_angle = cos(start_angle);
+    sin_angle = sin(start_angle);
+
+    // Cast ray until it hits a wall
+    while (!touch(ray_x, ray_y, data)) {
+        ray_x += cos_angle;
+        ray_y += sin_angle;
+    }
+
+    // Calculate distance and wall height
+    dist = fixed_dist(player->x, player->y, ray_x, ray_y, data);
+    height = (CUBE / dist) * (WIDTH / 2);
+    start_y = (HEIGHT - height) / 2;
+    end = start_y + height;
+
+    // Determine wall type and texture offset
+    float wall_x;
+    if (fabs(cos_angle) > fabs(sin_angle)) { // Vertical wall
+        wall_x = fmod(ray_y, CUBE) / CUBE;
+    } else {                                // Horizontal wall
+        wall_x = fmod(ray_x, CUBE) / CUBE;
+    }
+    tex_x = (int)(wall_x * 64); // Assuming texture width is 64
+
+    // Draw the wall slice
+    int y = start_y;
+    while (y < end) {
+        // Calculate texture y-coordinate
+        int d = y - start_y;
+        tex_y = (d * 64) / height; // Scale y to texture height (64)
+
+        // Fetch the character at the texture coordinate
+        char tex_char = wall->wall[tex_y][tex_x];
+
+        // Map the character to a color (e.g., '+' is white, 'o' is gray, '.' is black)
+        int color;
+        // if (tex_char == '+') color = 0xFFFFFF; // White
+        // else if (tex_char == 'o') color = 0x808080; // Gray
+        // else if (tex_char == '.') color = 0x000000; // Black
+        // else color = 0xFF00FF; // Magenta (unknown character)
+		color = 0xFF00FF;
+		int k = 0;
+		while (wall->pixels[k])
+		{
+			if (tex_char == wall->pixels[k][0])
+			{
+				color = ft_atoi_base(ft_strchr_g(wall->pixels[k], '#'), "0123456789ABCDEF");
+				break ;
+			}
+			k++;
+		}
+        // Draw the pixel
+        my_mlx_pixel_put(data, i, y, color);
+        y++;
+    }
 }
+
+
+
 
 int	draw_loop(t_data *data)
 {

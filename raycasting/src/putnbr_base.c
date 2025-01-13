@@ -6,13 +6,13 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 21:08:03 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/13 21:42:53 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/13 21:45:50 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	ft_strlen(char *str, char *base)
+int	ft_strlen2(char *str, char *base)
 {
 	int	i;
 	int	j;
@@ -47,9 +47,9 @@ int	ft_is_valid(char *base)
 {
 	int	i;
 	int	j;
-	int	len_base;
+	//int	len_base;
 
-	len_base = ft_strlen(base, base);
+	//len_base = ft_strlen2(base, base);
 	i = 0;
 	while (base[i])
 	{
@@ -78,8 +78,8 @@ int	ft_putnbr_deci(char *str, char *base, int neg)
 	int	j;
 	int	nb;
 
-	len_base = ft_strlen(base, base);
-	len_str = ft_strlen(str, base);
+	len_base = ft_strlen2(base, base);
+	len_str = ft_strlen2(str, base);
 	i = 0;
 	nb = 0;
 	while (str[i])
