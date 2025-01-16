@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 20:47:09 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/15 22:55:45 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/16 06:16:22 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,129 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void peutetre(t_game *game)
+int	move_player(t_player *player)
+{
+	double	rot_speed;
+	double	move_speed;
+
+	move_speed = 0.002;
+	rot_speed = 0.003;
+	if (player->p_up)
+	{ 
+		printf("ui\n");
+		if (player->game->map.map[(int)(player->posx + player->dirx * move_speed)][(int)player->posy] == '0')
+			player->posx += player->dirx * move_speed;
+		if (player->game->map.map[(int)player->posx][(int)(player->posy + player->diry * move_speed)] == '0')
+			player->posy += player->diry * move_speed;
+	}
+	if (player->p_dw)
+	{ 
+		if (player->game->map.map[(int)(player->posx - player->dirx * move_speed)][(int)player->posy] == '0')
+			player->posx -= player->dirx * move_speed;
+		if (player->game->map.map[(int)player->posx][(int)(player->posy - player->diry * move_speed)] == '0')
+			player->posy -= player->diry * move_speed;
+	}
+	if (player->p_lf) // A key
+	{ 
+		if (player->game->map.map[(int)(player->posx - player->diry * move_speed)][(int)player->posy] == '0')
+			player->posx -= player->diry * move_speed;
+		if (player->game->map.map[(int)player->posx][(int)(player->posy + player->dirx * move_speed)] == '0')
+			player->posy += player->dirx * move_speed;
+	}
+	if (player->p_rg) // D key
+	{ 
+		if (player->game->map.map[(int)(player->posx + player->diry * move_speed)][(int)player->posy] == '0')
+			player->posx += player->diry * move_speed;
+		if (player->game->map.map[(int)player->posx][(int)(player->posy - player->dirx * move_speed)] == '0')
+			player->posy -= player->dirx * move_speed;
+	}
+	if (player->right_r)
+	{ // Rotate right
+   		 double oldDirX = player->dirx;
+		player->dirx = player->dirx * cos(-rot_speed) - player->diry * sin(-rot_speed);
+		player->diry = oldDirX * sin(-rot_speed) + player->diry * cos(-rot_speed);
+		double oldPlaneX = player->planex;
+		player->planex = player->planex * cos(-rot_speed) - player->planey * sin(-rot_speed);
+		player->planey = oldPlaneX * sin(-rot_speed) + player->planey * cos(-rot_speed);
+	}
+	if (player->left_r)
+	{ // Rotate right
+   		 double oldDirX = player->dirx;
+		player->dirx = player->dirx * cos(rot_speed) - player->diry * sin(rot_speed);
+		player->diry = oldDirX * sin(rot_speed) + player->diry * cos(rot_speed);
+		double oldPlaneX = player->planex;
+		player->planex = player->planex * cos(rot_speed) - player->planey * sin(rot_speed);
+		player->planey = oldPlaneX * sin(rot_speed) + player->planey * cos(rot_speed);
+	}
+	return (0);
+}
+
+int	key_true(int keycode, t_player *player)
+{
+	//printf("%d\n", keycode);
+	if (keycode == 119)
+		player->p_up = 1;
+	if (keycode == 115)
+		player->p_dw = 1;
+	if (keycode == 97)
+		player->p_lf = 1;
+	if (keycode == 100)
+		player->p_rg = 1;
+	if (keycode == 65361)
+		player->left_r = 1;
+    if (keycode == 65363)
+		player->right_r = 1;
+	return (0);
+}
+
+int	key_false(int keycode, t_player *player)
+{
+	if (keycode == 119)
+		player->p_up = 0;
+	if (keycode == 115)
+		player->p_dw = 0;
+	if (keycode == 97)
+		player->p_lf = 0;
+	if (keycode == 100)
+		player->p_rg = 0;
+	if (keycode == 65361)
+        player->left_r = 0;
+    if (keycode == 65363)
+		player->right_r = 0;
+	return (0);
+}
+
+void	clear_image(t_game *game)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	x = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			my_mlx_pixel_put(&game->img, x, y, 0);
+			x++;
+		}
+		y++;
+	}
+}
+
+int peutetre(t_game *game)
 {
 	int	x;
 
 	x = -1;
+	clear_image(game);
 	while (++x < WIDTH - 1)
 	{
 		// printf("x : %d\n", x);
 		double cameraX = 2 * x / (double)WIDTH - 1; // Camera space coordinate
 		double rayDirX = game->p1.dirx + game->p1.planex * cameraX;
 		double rayDirY = game->p1.diry + game->p1.planey * cameraX;
-		printf("raydirx = %F | raydirY = %F\n", rayDirX, rayDirY);
 
 		//which box of the map we're in
 		int mapX = (int) game->p1.posx;
@@ -74,7 +185,6 @@ void peutetre(t_game *game)
 
 		double deltaDistX = fabs(1 / rayDirX);
 		double deltaDistY = fabs(1 / rayDirY);
-		printf("deltadisX : %F | deltadisY : %F\n", deltaDistX, deltaDistY);
 
 		int stepX, stepY;
 		if (rayDirX < 0) {
@@ -106,7 +216,6 @@ void peutetre(t_game *game)
 			}
 			if (mapX < 0)
 				mapX = 0;
-			printf("mapx : %d | mapy : %d\n", mapX, mapY);
 			if (game->map.map[mapX][mapY] > '0')
 			{
 				// printf("oui\n");
@@ -119,7 +228,6 @@ void peutetre(t_game *game)
 			perpWallDist = (sideDistX - deltaDistX);
 		else 
 			perpWallDist = (sideDistY - deltaDistY);
-		printf("prepawall %F\n", perpWallDist);
 		int lineHeight = (int)(HEIGHT / perpWallDist);
 
 		//calculate lowest and highest pixel to fill in current stripe
@@ -137,16 +245,21 @@ void peutetre(t_game *game)
 		{
 			int color =  0xFFFF00;
 			if(side == 1)
-				color = color / 2;
+				color = color / 5;
 			my_mlx_pixel_put(&game->img, x, y, 0xFFFF00);
 		}
 	}
+	move_player(&game->p1);
+	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
+	return (0);
 }
 
 void	game_loop(t_game *game)
 {
 	peutetre(game);
-	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
+	mlx_hook(game->win, 2, 1L<<0, key_true, &game->p1);
+	mlx_hook(game->win, 3, 1L<<1, key_false, &game->p1);
+	mlx_loop_hook(game->mlx, peutetre, game);
 	mlx_loop(game->mlx);
 }
 
@@ -158,6 +271,13 @@ void init_player(t_game *game)
 	game->p1.diry = 0;
 	game->p1.planex = 0;
 	game->p1.planey = 0.66;
+	game->p1.game = game;
+	game->p1.left_r = 0;
+	game->p1.right_r = 0;
+	game->p1.p_dw = 0;
+	game->p1.p_up = 0;
+	game->p1.p_lf = 0;
+	game->p1.p_rg = 0;
 }
 
 int main(void)

@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 20:48:29 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/15 21:49:52 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/16 05:44:05 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,19 @@ typedef struct s_img
 
 typedef struct s_player
 {
-	double	posx;
-	double	posy;  //x and y start position
-	double	dirx;
-	double	diry; //initial direction vector
-	double	planex;
-	double	planey; //the 2d raycaster version of camera plane
+	double			posx;
+	double			posy; //x and y start position
+	double			dirx;
+	double			diry; //initial direction vector
+	double			planex;
+	double			planey; //the 2d raycaster version of camera plane
+	int				p_up;
+	int				p_dw;
+	int				p_lf;
+	int				p_rg;
+	int				left_r;
+	int				right_r;
+	struct s_game	*game;
 }	t_player;
 
 typedef struct s_map
