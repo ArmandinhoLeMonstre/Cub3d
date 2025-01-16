@@ -11,7 +11,7 @@ RM = rm -rf
 SRC_DIR = src/
 OBJ_DIR = obj/
 
-SRC_FILES = test
+SRC_FILES = test parse_xpm putnbr_base
 
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))

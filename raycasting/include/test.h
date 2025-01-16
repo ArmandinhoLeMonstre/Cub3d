@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 20:48:29 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/16 06:30:06 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/16 18:51:40 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,23 @@
 #include <stdio.h>
 #include <math.h>
 
-#define WIDTH 640
-#define HEIGHT 400
+#define WIDTH 1280
+#define HEIGHT 720
+
+typedef struct s_col
+{
+	char	c;
+	int		id;
+}	t_col;
+
+typedef struct s_wall
+{
+	int		info;
+	int		x;
+	int		y;
+	t_col	*col;
+	char	**wall;
+}				t_wall;
 
 typedef struct s_img
 {
@@ -56,6 +71,11 @@ typedef struct s_game
 	t_player	p1;
 	t_map		map;
 	t_img		img;
+	t_wall		wall;
+	t_wall		wall2;
 	void		*mlx;
 	void		*win;
 }	t_game;
+
+int	parse_xpm(t_wall *wall, char *file);
+int	ft_atoi_base(char *str, char *base);

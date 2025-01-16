@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 20:47:09 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/16 07:45:34 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/16 19:05:36 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,10 @@ int	move_player(t_player *player)
 	double	rot_speed;
 	double	move_speed;
 
-	move_speed = 0.002;
-	rot_speed = 0.003;
+	move_speed = 0.02;
+	rot_speed = 0.03;
 	if (player->p_up)
 	{ 
-		printf("ui\n");
 		if (player->game->map.map[(int)(player->posx + player->dirx * move_speed)][(int)player->posy] == '0')
 			player->posx += player->dirx * move_speed;
 		if (player->game->map.map[(int)player->posx][(int)(player->posy + player->diry * move_speed)] == '0')
@@ -240,15 +239,45 @@ int peutetre(t_game *game)
 		if(drawEnd >= HEIGHT)
 			drawEnd = HEIGHT - 1;
 
+		double wallX; //where exactly the wall was hit
+		if (side == 0)
+			wallX = game->p1.posy + perpWallDist * rayDirY;
+		else
+			wallX = game->p1.posx + perpWallDist * rayDirX;
+		wallX -= floor((wallX));
+
+		//x coordinate on the texture
+		int texX = (int)(wallX * (double)64);
+		if(side == 0 && rayDirX > 0)
+			texX = 64 - texX - 1;
+		if(side == 1 && rayDirY < 0)
+			texX = 64 - texX - 1;
+		double step = 1.0 * 64 / lineHeight;
+		double texPos = (drawStart - HEIGHT / 2 + lineHeight / 2) * step;
 		int	y;
 		y = drawStart - 1;
-		// printf("y = %d | drawend :%d\n", y, drawEnd);
 		while (++y <= drawEnd)
 		{
-			int color =  0xFFFF00;
-			if(side == 1)
-				color = color / 5;
-			my_mlx_pixel_put(&game->img, x, y, 0xFFFF00);
+			int color;
+			int texY = (int)texPos & (64 - 1);
+			texPos += step;
+			color = 0;
+			int k = 0;
+			t_wall *wall;
+			if (side == 1)
+				wall = &game->wall;
+			else
+				wall = &game->wall2;
+			while (k < wall->info)
+			{
+				if (wall->wall[texY][texX] == wall->col[k].c)
+				{
+					color = wall->col[k].id;
+					break ;
+				}
+				k++;
+			}
+			my_mlx_pixel_put(&game->img, x, y, color);
 		}
 	}
 	move_player(&game->p1);
@@ -277,7 +306,6 @@ int mouse_move(int x, int y, t_player *player)
 		deltaX = 1;
 	else
 		deltaX = -1;
-	printf("lastmouse : %d | x : %d | deklta : %d\n", lastMouseX, x, deltaX);
     lastMouseX = x;
 
     double rot_speed = 0.005 * deltaX;
@@ -334,6 +362,8 @@ int main(void)
 	game.img.img = mlx_new_image(game.mlx, WIDTH, HEIGHT);
 	game.img.addr = mlx_get_data_addr(game.img.img, &game.img.bits_per_pixel,
 			&game.img.line_length, &game.img.endian);
+	parse_xpm(&game.wall, "test.xpm");
+	parse_xpm(&game.wall2, "test2.xpm");
 	mlx_mouse_hide(game.mlx, game.win);
 	game_loop(&game);
 }
