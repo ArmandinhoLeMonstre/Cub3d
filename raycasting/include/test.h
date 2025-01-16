@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 20:48:29 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/16 18:51:40 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/16 20:26:14 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ typedef struct s_game
 	t_img		img;
 	t_wall		wall;
 	t_wall		wall2;
+	t_wall		wall3;
+	t_wall		wall4;
 	void		*mlx;
 	void		*win;
 }	t_game;

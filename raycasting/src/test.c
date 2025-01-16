@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 20:47:09 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/16 19:05:36 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/16 21:06:53 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,25 @@ char **get_map(void)
 	map[0] = "111111111111111111111111";
 	map[1] = "100000000000000000000001";
 	map[2] = "100000000000000000000001";
-	map[3] = "100000222220000303030001";
-	map[4] = "100000200020000000000001";
-	map[5] = "100000200020000300030001";
-	map[6] = "100000200020000000000001";
-	map[7] = "100000220220000303030001";
+	map[3] = "100000000000000000000001";
+	map[4] = "100000000000000000000001";
+	map[5] = "100000000000000000000001";
+	map[6] = "100000000000000000000001";
+	map[7] = "100000000000000000000001";
 	map[8] = "100000000000000000000001";
-	map[9] = "100000000000000000000001";
+	map[9] = "100000000000010000000001";
 	map[10] = "100000000000000000000001";
 	map[11] = "100000000000000000000001";
 	map[12] = "100000000000000000000001";
 	map[13] = "100000000000000000000001";
 	map[14] = "100000000000000000000001";
-	map[15] = "144444444000000000000001";
-	map[16] = "140400004000000000000001";
-	map[17] = "140000504000000000000001";
-	map[18] = "140400004000000000000001";
-	map[19] = "140444444000000000000001";
-	map[20] = "140000000000000000000001";
-	map[21] = "144444444000000000000001";
+	map[15] = "100000000000000000000001";
+	map[16] = "100000000000000000000001";
+	map[17] = "100000000000000000000001";
+	map[18] = "100000000000000000000001";
+	map[19] = "100000000000000000000001";
+	map[20] = "100000000000000000000001";
+	map[21] = "100000000000000000000001";
 	map[22] = "100000000000000000000001";
 	map[23] = "111111111111111111111111";
   map[24] = NULL;
@@ -57,7 +57,7 @@ int	move_player(t_player *player)
 	double	move_speed;
 
 	move_speed = 0.02;
-	rot_speed = 0.03;
+	rot_speed = 0.02;
 	if (player->p_up)
 	{ 
 		if (player->game->map.map[(int)(player->posx + player->dirx * move_speed)][(int)player->posy] == '0')
@@ -254,9 +254,12 @@ int peutetre(t_game *game)
 			texX = 64 - texX - 1;
 		double step = 1.0 * 64 / lineHeight;
 		double texPos = (drawStart - HEIGHT / 2 + lineHeight / 2) * step;
-		int	y;
-		y = drawStart - 1;
-		while (++y <= drawEnd)
+		int	y = -1;
+		while (++y < drawStart)
+			my_mlx_pixel_put(&game->img, x, y, 0xFFFFFF);
+		y--;
+		//y = drawStart - 1;
+		while (y++ <= drawEnd)
 		{
 			int color;
 			int texY = (int)texPos & (64 - 1);
@@ -265,9 +268,19 @@ int peutetre(t_game *game)
 			int k = 0;
 			t_wall *wall;
 			if (side == 1)
-				wall = &game->wall;
+			{
+				if (stepY == -1)
+					wall = &game->wall2;
+				else
+					wall = &game->wall4;
+			}
 			else
-				wall = &game->wall2;
+			{
+				if (stepX == -1)
+					wall = &game->wall;
+				else
+					wall = &game->wall3;
+			}
 			while (k < wall->info)
 			{
 				if (wall->wall[texY][texX] == wall->col[k].c)
@@ -279,6 +292,9 @@ int peutetre(t_game *game)
 			}
 			my_mlx_pixel_put(&game->img, x, y, color);
 		}
+	y--;
+	while (y++ < HEIGHT)
+			my_mlx_pixel_put(&game->img, x, y, 0xFF0000);
 	}
 	move_player(&game->p1);
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
@@ -336,8 +352,8 @@ void	game_loop(t_game *game)
 
 void init_player(t_game *game)
 {
-	game->p1.posx = 22;
-	game->p1.posy = 12;
+	game->p1.posx = 12;
+	game->p1.posy = 13;
 	game->p1.dirx = -1;
 	game->p1.diry = 0;
 	game->p1.planex = 0;
@@ -364,6 +380,8 @@ int main(void)
 			&game.img.line_length, &game.img.endian);
 	parse_xpm(&game.wall, "test.xpm");
 	parse_xpm(&game.wall2, "test2.xpm");
+	parse_xpm(&game.wall3, "test3.xpm");
+	parse_xpm(&game.wall4, "test4.xpm");
 	mlx_mouse_hide(game.mlx, game.win);
 	game_loop(&game);
 }
