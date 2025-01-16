@@ -11,7 +11,7 @@ RM = rm -rf
 SRC_DIR = src/
 OBJ_DIR = obj/
 
-SRC_FILES = main player keyhook draw draw_utils parse_xpm
+SRC_FILES = test
 
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
@@ -22,7 +22,7 @@ all : $(LIBFT) $(NAME)
 
 $(NAME): $(OBJ)
 	@echo "\033[0;33m\nCOMPILING cub3d...\n"
-	$(CC) $(OBJ) $(LIBFT) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(OBJ) $(LIBFT) -fsanitize=address -g3 -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 	@echo "\033[1;32mcub3d created\n"
 
 $(LIBFT)	:
@@ -32,7 +32,7 @@ $(LIBFT)	:
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
-	$(CC) -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	$(CC) -Wall -Wextra -Werror -fsanitize=address -g3 -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 clean :
 	$(RM) $(OBJ_DIR)
