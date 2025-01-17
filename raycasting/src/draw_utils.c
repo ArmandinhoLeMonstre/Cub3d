@@ -1,39 +1,75 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   drawing_utils.c                                    :+:      :+:    :+:   */
+/*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/11 15:19:01 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/11 15:20:58 by armitite         ###   ########.fr       */
+/*   Created: 2025/01/17 17:14:07 by armitite          #+#    #+#             */
+/*   Updated: 2025/01/17 17:22:14 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../include/test.h"
 
-int	touch(float px, float py, t_data *data)
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
-	int	x;
-	int	y;
+	char	*dst;
 
-	x = px / CUBE;
-	y = py / CUBE;
-	if (data->map[y][x] == '1')
-		return (1);
-	return (0);
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
 }
 
-float distance(float x, float y)
+int	get_color(t_game *game, t_draw *draw, int color)
 {
-    return sqrt(x * x + y * y);
+	int texY = (int)draw->texPos & (64 - 1);
+	draw->texPos += draw->step;
+	color = 0;
+	int k = 0;
+	t_wall *wall;
+	if (draw->side == 1)
+	{
+		if (draw->stepY == -1)
+			wall = &game->wall_west;
+		else
+			wall = &game->wall_east;
+	}
+	else
+	{
+		if (draw->stepX == -1)
+			wall = &game->wall_north;
+		else
+			wall = &game->wall_south;
+	}
+	while (k < wall->info)
+	{
+		if (wall->wall[texY][draw->texX] == wall->col[k].c)
+		{
+			color = wall->col[k].id;
+			break ;
+		}
+		k++;
+	}
+	return (color);
 }
 
-float fixed_dist(float x1, float y1, float x2, float y2, t_data *data)
+void	draw_game(t_game *game, t_draw *draw, int x)
 {
-    float delta_x = x2 - x1;
-    float delta_y = y2 - y1;
-    float angle = atan2(delta_y, delta_x) - data->player->angle;
-    float fix_dist = distance(delta_x, delta_y) * cos(angle);
-    return fix_dist;
+	int y;
+	int color;
+	
+	y = -1;
+	color = 0;
+	while (++y < draw->drawStart)
+		my_mlx_pixel_put(&game->img, x, y, 0xFFFFFF);
+	y--;
+	//y = draw->drawStart - 1;
+	while (y++ <= draw->drawEnd)
+	{
+		color = get_color(game, draw, color);
+		my_mlx_pixel_put(&game->img, x, y, color);
+	}
+	y--;
+	while (y++ < HEIGHT)
+		my_mlx_pixel_put(&game->img, x, y, 0xFF0000);
 }

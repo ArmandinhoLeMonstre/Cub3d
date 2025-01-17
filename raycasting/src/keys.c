@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keyhook.c                                          :+:      :+:    :+:   */
+/*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/08 19:27:10 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/11 15:21:58 by armitite         ###   ########.fr       */
+/*   Created: 2025/01/17 18:01:27 by armitite          #+#    #+#             */
+/*   Updated: 2025/01/17 18:01:40 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../include/test.h"
 
 int	key_true(int keycode, t_player *player)
 {
 	//printf("%d\n", keycode);
+	if (keycode == 65307) //pour esc, pas oublier de free
+		exit(0);
 	if (keycode == 119)
 		player->p_up = 1;
 	if (keycode == 115)
@@ -23,9 +25,9 @@ int	key_true(int keycode, t_player *player)
 		player->p_lf = 1;
 	if (keycode == 100)
 		player->p_rg = 1;
-	if(keycode == LEFT)
+	if (keycode == 65361)
 		player->left_r = 1;
-    if(keycode == RIGHT)
+    if (keycode == 65363)
 		player->right_r = 1;
 	return (0);
 }
@@ -40,9 +42,9 @@ int	key_false(int keycode, t_player *player)
 		player->p_lf = 0;
 	if (keycode == 100)
 		player->p_rg = 0;
-	if(keycode == LEFT)
+	if (keycode == 65361)
         player->left_r = 0;
-    if(keycode == RIGHT)
+    if (keycode == 65363)
 		player->right_r = 0;
 	return (0);
 }

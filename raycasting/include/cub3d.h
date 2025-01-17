@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:56:45 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/16 18:14:35 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:16:30 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,3 +89,4 @@ int	touch(float px, float py, t_data *data);
 int	key_false(int keycode, t_player *player);
 int	key_true(int keycode, t_player *player);
 void	move_player(t_player *player);
+int	get_color(t_game *game, t_draw *draw, int color);

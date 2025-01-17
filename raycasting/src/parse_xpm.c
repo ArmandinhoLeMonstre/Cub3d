@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_xpm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:22:39 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/16 19:05:04 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/17 15:39:59 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int make_walls(int fd, int number, t_wall *wall)
 		wall->wall[i] = ft_strtrim(wall->wall[i], "\n");
 		wall->wall[i] = ft_strtrim(wall->wall[i], ",");
 		wall->wall[i] = ft_strtrim(wall->wall[i], "\"");
-		// printf("%s\n", wall->wall[i]);
+		//printf("%s\n", wall->wall[i]);
 		i++;
 	}
 	return (0);
