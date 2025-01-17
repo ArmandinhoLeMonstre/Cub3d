@@ -6,13 +6,13 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:23:06 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/17 17:38:06 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:51:06 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/test.h"
 
-void	init_ray(t_game *game, t_draw *draw, int x)
+void	calcul_ray(t_game *game, t_draw *draw, int x)
 {
 	draw->cameraX = 2 * x / (double)WIDTH - 1; // Camera space coordinate
 	draw->rayDirX = game->p1.dirx + game->p1.planex * draw->cameraX;
@@ -21,6 +21,11 @@ void	init_ray(t_game *game, t_draw *draw, int x)
 	draw->mapY = (int) game->p1.posy;
 	draw->deltaDistX = fabs(1 / draw->rayDirX);
 	draw->deltaDistY = fabs(1 / draw->rayDirY);
+}
+
+void	init_ray(t_game *game, t_draw *draw, int x)
+{
+	calcul_ray(game, draw, x);
 	if (draw->rayDirX < 0) 
 	{
 		draw->stepX = -1;
