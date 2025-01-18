@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_player2d.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 14:39:25 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/18 07:23:33 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 14:21:42 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 int	draw_player(int x, int y, int size, t_game *game, int color)
 {
 	int	i;
+
 	i = 0;
-	if(x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
-        return (0);
+	if (x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
+		return (0);
 	while (i < size)
 	{
 		my_mlx_pixel_put(&game->img, x + i, y, color);
@@ -41,7 +42,7 @@ int	draw_player(int x, int y, int size, t_game *game, int color)
 		my_mlx_pixel_put(&game->img, x + size, y + i, color);
 		i++;
 	}
-	return(0);
+	return (0);
 }
 
 void	draw_map(t_game *game)

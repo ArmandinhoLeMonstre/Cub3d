@@ -3,15 +3,16 @@ NAME = cub3d
 LIBFT = ./libft/libft.a
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3 -fsanitize=address -g3
-MLXFLAGS = -fsanitize=address -g -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+CFLAGS = -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3 
+MLXFLAGS =  -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 RM = rm -rf
 
 SRC_DIR = src/
 OBJ_DIR = obj/
 
-SRC_FILES = utils parsing parsing_utils map map_utils main exit game parse_xpm putnbr_base draw raycasting raycasting2 player movements keys map_player2d
+SRC_FILES = utils parsing parsing_utils map map_utils main exit game parse_xpm putnbr_base draw \
+raycasting raycasting2 player movements keys map_player2d floor_n_celling
 
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))

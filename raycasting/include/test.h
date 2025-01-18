@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 20:48:29 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/18 06:59:59 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:00:13 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 #include <stdio.h>
 #include <math.h>
 
-#define WIDTH 1280
-#define HEIGHT 720
+#define WIDTH 1920
+#define HEIGHT 1080
 
 typedef struct s_sprites
 {
@@ -74,7 +74,7 @@ typedef struct s_draw
 	int		drawStart;
 	int		drawEnd;
 	double	wallX;
-	int		texX;
+	int		tex_x;
 	double	step;
 	double	texPos;
 }	t_draw;
@@ -116,6 +116,8 @@ typedef struct s_game
 	t_wall		wall_west;
 	t_wall		wall_south;
 	t_wall		wall_east;
+	int			floor;
+	int			ceiling;
 	char		*file;
 	void		*mlx;
 	void		*win;
@@ -134,6 +136,8 @@ void	wall_size(t_game *game, t_draw *draw);
 // Draw utils
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	draw_game(t_game *game, t_draw *draw, int x);
+char	*get_floor(t_game *game);
+char	*get_ceiling(t_game *game);
 
 //Movements
 int		move_player(t_player *player);
