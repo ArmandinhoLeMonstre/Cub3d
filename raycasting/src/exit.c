@@ -6,11 +6,24 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 02:06:44 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/18 06:47:23 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:02:45 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/test.h"
+
+void	ft_freewall(char **wall)
+{
+	int	i;
+
+	i = -1;
+	if (!wall)
+		return ;
+	while (++i < 64 && wall[i])
+		free(wall[i]);
+	if (wall)
+		free(wall);
+}
 
 void	ft_error(char *str)
 {

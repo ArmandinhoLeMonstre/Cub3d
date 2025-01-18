@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:22:39 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/18 06:50:27 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:07:24 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	check_pixels(char **pixel_data)
 	int	check2;
 	int	pixel;
 
+	if (!pixel_data[0])
+		return(-1);
 	check1 = ft_atoi(&pixel_data[0][1]);
 	check2 = ft_atoi(pixel_data[1]);
 	pixel = ft_atoi(pixel_data[2]);
@@ -74,20 +76,19 @@ int	parse_xpm(t_wall *wall, char *file)
 	int		i;
 	char	*test;
 
-	i = 0;
 	fd = ft_open(file);
 	test = get_next_line(fd);
-	while (i < 3)
+	i = -1;
+	while (++i < 3)
 	{
 		free(test);
 		test = get_next_line(fd);
-		i++;
 	}
 	pixel_data = ft_split(test, ' ');
 	number = check_pixels(pixel_data);
 	wall->info = number;
 	if (number == -1)
-		return (printf("Error\n"), 1);
+		return (ft_free(pixel_data), free(test), close(fd), 1);
 	make_walls(fd, number, wall);
 	ft_free(pixel_data);
 	free(test);

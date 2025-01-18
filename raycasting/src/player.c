@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:48:10 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/18 06:06:43 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:06:15 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,8 @@ void init_player(t_game *game)
 	game->p1.p_up = 0;
 	game->p1.p_lf = 0;
 	game->p1.p_rg = 0;
+	game->wall_east.wall = NULL;
+	game->wall_west.wall = NULL;
+	game->wall_north.wall = NULL;
+	game->wall_south.wall = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 20:47:09 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/18 07:27:13 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:07:41 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,16 @@ int peutetre(t_game *game)
 
 int	ft_exit(t_game *game)
 {
-	//il faut free
-	(void)game;
+	ft_freemap(game->map.map, game);
+	ft_freeparse(game);
+	if (game->wall_east.wall)
+		ft_freewall(game->wall_east.wall);
+	if (game->wall_west.wall)
+		ft_freewall(game->wall_west.wall);
+	if (game->wall_north.wall)
+		ft_freewall(game->wall_north.wall);
+	if (game->wall_south.wall)
+		ft_freewall(game->wall_south.wall);
 	exit(0);
 }
 
@@ -106,10 +114,11 @@ int	ft_game(t_game *game)
 	game->img.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bits_per_pixel,
 			&game->img.line_length, &game->img.endian);
-	parse_xpm(&game->wall_north, game->sprt.north);
-	parse_xpm(&game->wall_west, game->sprt.west);
-	parse_xpm(&game->wall_south, game->sprt.south);
-	parse_xpm(&game->wall_east, game->sprt.east);
+	if (parse_xpm(&game->wall_north, game->sprt.north)
+		|| parse_xpm(&game->wall_west, game->sprt.west)
+		|| parse_xpm(&game->wall_south, game->sprt.south)
+		|| parse_xpm(&game->wall_east, game->sprt.east))
+		return (printf("Error\nInvalid XPM\n"), ft_exit(game));
 	mlx_mouse_hide(game->mlx, game->win);
 	game_loop(game);
 	return (0);

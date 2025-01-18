@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 20:48:29 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/18 06:59:59 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:15:51 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 #include <stdio.h>
 #include <math.h>
 
-#define WIDTH 1280
-#define HEIGHT 720
+#define WIDTH 1920
+#define HEIGHT 1080
 
 typedef struct s_sprites
 {
@@ -147,6 +147,8 @@ void	ft_error(char *str);
 void	ft_freeparse(t_game *game);
 void	ft_freemap(char **map, t_game *game);
 void	ft_free(char **rep);
+int		ft_exit(t_game *game);
+void	ft_freewall(char **wall);
 
 //utils
 int		ft_open(char *file);

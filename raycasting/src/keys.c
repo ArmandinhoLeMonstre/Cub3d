@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 18:01:27 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/18 06:32:37 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 16:49:16 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	key_true(int keycode, t_player *player)
 {
 	if (keycode == 65307) //pour esc, pas oublier de free
-		exit(0);
+		ft_exit(player->game);
 	if (keycode == 119)
 		player->p_up = 1;
 	if (keycode == 115)

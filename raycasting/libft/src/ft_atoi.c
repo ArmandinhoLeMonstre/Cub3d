@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 16:05:55 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/17 02:35:42 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 16:57:59 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static int	ft_ignorespace(const char *str)
 {
 	int	i;
 
+	if (!str || !str[0])
+		return(0);
 	i = 0;
 	while (ft_isspace(str[i]))
 		i++;
@@ -49,6 +51,8 @@ int	ft_atoi(const char *str)
 	long long	rep;
 	long long	temp;
 
+	if (!str || !str[0])
+		return(0);
 	rep = 0;
 	i = ft_ignorespace(str);
 	neg = ft_sign(str, &i);

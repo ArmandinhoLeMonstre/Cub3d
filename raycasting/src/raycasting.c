@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:23:06 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/18 06:38:00 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:23:52 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ void	init_ray(t_game *game, t_draw *draw, int x)
 
 void	wall_hit(t_game *game, t_draw *draw)
 {
-	if (draw->sideDistX < draw->sideDistY) 
+	if (draw->sideDistX < draw->sideDistY)
 	{
 		draw->sideDistX += draw->deltaDistX;
 		draw->mapX += draw->stepX;
 		draw->side = 0;
-	} 
-	else 
+	}
+	else
 	{
 		draw->sideDistY += draw->deltaDistY;
 		draw->mapY += draw->stepY;
@@ -64,8 +64,8 @@ void	wall_hit(t_game *game, t_draw *draw)
 	}
 	if (draw->mapX < 0)
 		draw->mapX = 0;
-	if ( game->map.map[draw->mapY][draw->mapX] == '1')
-			draw->hit = 1;
+	if ( game->map.map[draw->mapX][draw->mapX] == '1')
+		draw->hit = 1;
 }
 
 void	wall_dist(t_game *game, t_draw *draw, int x)

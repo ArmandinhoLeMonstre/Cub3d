@@ -1,6 +1,7 @@
 /* XPM */
 static char *simple_texture[] = {
 /* width height num_colors chars_per_pixel */
+
 "64 64 5 1",
 "  c #FF0000"
 ". c #00FF00"

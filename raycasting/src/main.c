@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 01:59:41 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/18 06:24:31 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 16:44:39 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,5 @@ int	main(int ac, char **av)
 			ft_error("Error\nInvalid Map\n");
 		}
 		ft_game(&game);
-		ft_freemap(game.map.map, &game);
-		ft_freeparse(&game);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 14:39:25 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/18 07:23:33 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:16:46 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	draw_map(t_game *game)
 		while (++x < game->map.col * 5)
 		{
 			if (x == (int) game->p1.posx && y == (int) game->p1.posy)
-				draw_player(x * 5, y * 5, 5, game, 0xFF00FF);
+				draw_player(x * 5, y * 5, 5, game, 0xFFFFFF);
 			else
 				my_mlx_pixel_put(&game->img, x, y, 0x000000);
 		}
