@@ -3,8 +3,8 @@ NAME = cub3d
 LIBFT = ./libft/libft.a
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3
-MLXFLAGS =  -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+CFLAGS = -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3 -fsanitize=address -g
+MLXFLAGS =  -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -fsanitize=address -g
 
 RM = rm -rf
 

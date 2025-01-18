@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:14:07 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/18 18:32:40 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 21:01:23 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,19 @@ void	draw_game(t_game *game, t_draw *draw, int x)
 
 	y = -1;
 	color = 0;
+	printf("X:%d\n", x * 64);
 	while (++y < draw->drawStart)
-		my_mlx_pixel_put(&game->img, x, y, game->ceiling);
+		if (!(y > HEIGHT || x > WIDTH || x < 0 || y < 0))
+			my_mlx_pixel_put(&game->img, x, y, game->ceiling);
 	y--;
 	while (y++ <= draw->drawEnd)
 	{
 		color = get_color(game, draw, color);
+		// if (!(y > HEIGHT || x > WIDTH || x < 0 || y < 0))
 		my_mlx_pixel_put(&game->img, x, y, color);
 	}
 	y--;
 	while (y++ < HEIGHT)
+		//if (!(y > HEIGHT || x > WIDTH || x < 0 || y < 0))
 		my_mlx_pixel_put(&game->img, x, y, game->floor);
 }

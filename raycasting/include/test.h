@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 20:48:29 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/18 17:33:43 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:09:16 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 #include <stdio.h>
 #include <math.h>
 
-#define WIDTH 1280
-#define HEIGHT 720
+#define WIDTH 1920
+#define HEIGHT 1080
 
 typedef struct s_sprites
 {
@@ -111,6 +111,7 @@ typedef struct s_game
 	t_player	p1;
 	t_map		map;
 	t_img		img;
+	t_img		minimap;
 	t_sprites	sprt;
 	t_wall		wall_north;
 	t_wall		wall_west;

@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 04:12:29 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/18 06:35:13 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:40:59 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	ft_findpalyer(char **map, t_game *game)
 			{
 				if (game->p1.posx < 1 && game->p1.posy < 1)
 				{
-					game->p1.posx = (double) x ;
-					game->p1.posy = (double) y ;
+					game->p1.posx = (double) x + 0.5;
+					game->p1.posy = (double) y + 0.5;
 					game->p1.orientation = map[y][x];
 				}
 				else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:55:54 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/18 18:19:50 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:54:33 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int	move_player(t_player *player)
 
 	move_speed = 0.1;
 	rot_speed = 0.1;
+	printf("x : %F | y : %F\n", player->posx, player->posy);
 	if (player->p_up || player->p_dw)
 		ws(player, move_speed);
 	if (player->p_lf || player->p_rg)

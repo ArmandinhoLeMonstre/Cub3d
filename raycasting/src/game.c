@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 20:47:09 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/18 18:34:05 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:57:37 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,21 @@ void	clear_image(t_game *game)
 
 int peutetre(t_game *game)
 {
-	int		x;
-	t_draw	draw;
+	int			x;
+	t_draw		draw;
 
 	x = -1;
 	clear_image(game);
-	while (++x < WIDTH - 1)
+	while (++x < WIDTH - 2)
 	{
 		wall_dist(game, &draw, x);
 		wall_size(game, &draw);
 		draw_game(game, &draw, x);
-		draw_map(game);
 	}
 	move_player(&game->p1);
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
+	draw_map(game);
+	// mlx_put_image_to_window(game->mlx, game->win, game->minimap.img, 0, 0);
 	return (0);
 }
 
@@ -113,6 +114,9 @@ int	ft_game(t_game *game)
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Cub3d");
 	game->img.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bits_per_pixel,
+			&game->img.line_length, &game->img.endian);
+	game->minimap.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	game->minimap.addr = mlx_get_data_addr(game->minimap.img, &game->img.bits_per_pixel,
 			&game->img.line_length, &game->img.endian);
 	if (parse_xpm(&game->wall_north, game->sprt.north)
 		|| parse_xpm(&game->wall_west, game->sprt.west)
