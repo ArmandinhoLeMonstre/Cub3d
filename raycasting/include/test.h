@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 20:48:29 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/18 06:47:48 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 06:59:59 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,3 +166,5 @@ int		ft_findpalyer(char **map, t_game *game);
 
 //parsing
 void	parsing(char *file, t_game *game);
+
+void	draw_map(t_game *game);

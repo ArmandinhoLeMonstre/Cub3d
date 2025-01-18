@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:55:54 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/18 06:36:22 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 07:23:59 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ void	wasd(t_player *player, double move_speed)
 	// printf("%s\n", player->game->map.map[0]);
 	if (player->p_up)
 	{ 
-		printf("c : %c\n", player->game->map.map[(int)player->posy][(int)(player->posx + player->dirx * move_speed)]);
-		printf("c : %c\n", player->game->map.map[(int)player->posy][(int)(player->posx + player->dirx * move_speed)]);
 		if (player->game->map.map[(int)player->posy][(int)(player->posx + player->dirx * move_speed)] != '1')
 			player->posx += player->dirx * move_speed;
 		if (player->game->map.map[(int)(player->posy + player->diry * move_speed)][(int)player->posx] != '1')
@@ -48,8 +46,6 @@ void	wasd(t_player *player, double move_speed)
 	}
 	if (player->p_dw)
 	{ 
-		printf("c3 : %c\n", player->game->map.map[(int)player->posy][(int)(player->posx - player->dirx * move_speed)]);
-		printf("c 3: %c\n", player->game->map.map[(int)(player->posy - player->diry * move_speed)][(int)player->posx]);
 		if (player->game->map.map[(int)player->posy][(int)(player->posx - player->dirx * move_speed)] != '1')
 			player->posx -= player->dirx * move_speed;
 		if (player->game->map.map[(int)(player->posy - player->diry * move_speed)][(int)player->posx] != '1')
@@ -57,8 +53,6 @@ void	wasd(t_player *player, double move_speed)
 	}
 	if (player->p_lf) // A key
 	{ 
-		printf("c 2: %c\n", player->game->map.map[(int)player->posy][(int)(player->posx - player->diry * move_speed)]);
-		printf("c2 : %c\n", player->game->map.map[(int)(player->posy + player->dirx * move_speed)][(int)player->posx]);
 		if (player->game->map.map[(int)player->posy][(int)(player->posx - player->diry * move_speed)] != '1')
 			player->posx -= player->diry * move_speed;
 		if (player->game->map.map[(int)(player->posy + player->dirx * move_speed)][(int)player->posx] != '1')
@@ -66,8 +60,6 @@ void	wasd(t_player *player, double move_speed)
 	}
 	if (player->p_rg) // D key
 	{ 
-		printf("c1 : %c\n", player->game->map.map[(int)player->posy][(int)(player->posx + player->diry * move_speed)]);
-		printf("c 1: %c\n", player->game->map.map[(int)(player->posy - player->dirx * move_speed)][(int)player->posx]);
 		if (player->game->map.map[(int)player->posy][(int)(player->posx + player->diry * move_speed)] != '1')
 			player->posx += player->diry * move_speed;
 		if (player->game->map.map[(int)(player->posy - player->dirx * move_speed)][(int)player->posx] != '1')
@@ -80,8 +72,8 @@ int	move_player(t_player *player)
 	double	rot_speed;
 	double	move_speed;
 
-	move_speed = 0.02;
-	rot_speed = 0.02;
+	move_speed = 0.1;
+	rot_speed = 0.1;
 	wasd(player, move_speed);
 	rotate(player, rot_speed);
 	return (0);

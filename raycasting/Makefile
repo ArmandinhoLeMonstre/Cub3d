@@ -11,7 +11,7 @@ RM = rm -rf
 SRC_DIR = src/
 OBJ_DIR = obj/
 
-SRC_FILES = utils parsing parsing_utils map map_utils main exit game parse_xpm putnbr_base draw raycasting raycasting2 player movements keys
+SRC_FILES = utils parsing parsing_utils map map_utils main exit game parse_xpm putnbr_base draw raycasting raycasting2 player movements keys map_player2d
 
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))

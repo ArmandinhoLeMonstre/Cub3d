@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 20:47:09 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/18 06:50:15 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 07:27:13 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int peutetre(t_game *game)
 		wall_dist(game, &draw, x);
 		wall_size(game, &draw);
 		draw_game(game, &draw, x);
+		draw_map(game);
 	}
 	move_player(&game->p1);
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
