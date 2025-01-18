@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:23:06 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/17 18:51:06 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/18 06:38:00 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	wall_hit(t_game *game, t_draw *draw)
 	}
 	if (draw->mapX < 0)
 		draw->mapX = 0;
-	if (game->map.map[draw->mapX][draw->mapY] > '0')
-		draw->hit = 1;
+	if ( game->map.map[draw->mapY][draw->mapX] == '1')
+			draw->hit = 1;
 }
 
 void	wall_dist(t_game *game, t_draw *draw, int x)

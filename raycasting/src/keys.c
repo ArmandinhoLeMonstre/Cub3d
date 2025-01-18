@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 18:01:27 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/17 19:15:27 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/18 06:32:37 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	key_true(int keycode, t_player *player)
 {
-	//printf("%d\n", keycode);
 	if (keycode == 65307) //pour esc, pas oublier de free
 		exit(0);
 	if (keycode == 119)

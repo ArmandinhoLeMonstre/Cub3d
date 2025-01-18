@@ -3,15 +3,15 @@ NAME = cub3d
 LIBFT = ./libft/libft.a
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -O3
-MLXFLAGS = -fsanitize=address -g mlx_linux/libmlx_Linux.a mlx_linux -Lmlx_linux -lXext -lX11 -lm
+CFLAGS = -Wall -Wextra -Werror -I/usr/include -Imlx_linux -O3 -fsanitize=address -g3
+MLXFLAGS = -fsanitize=address -g -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 RM = rm -rf
 
 SRC_DIR = src/
 OBJ_DIR = obj/
 
-SRC_FILES = test parse_xpm putnbr_base draw raycasting raycasting2 player movements keys
+SRC_FILES = utils parsing parsing_utils map map_utils main exit game parse_xpm putnbr_base draw raycasting raycasting2 player movements keys
 
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
@@ -22,7 +22,7 @@ all : $(LIBFT) $(NAME)
 
 $(NAME): $(OBJ)
 	@echo "\033[0;33m\nCOMPILING cub3d...\n"
-	$(CC) $(OBJ) $(LIBFT) -fsanitize=address -g3 -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(OBJ) $(LIBFT) $(MLXFLAGS) -o $(NAME)
 	@echo "\033[1;32mcub3d created\n"
 
 $(LIBFT)	:
@@ -32,7 +32,7 @@ $(LIBFT)	:
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
-	$(CC) -Wall -Wextra -Werror -fsanitize=address -g3 -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
 	$(RM) $(OBJ_DIR)
