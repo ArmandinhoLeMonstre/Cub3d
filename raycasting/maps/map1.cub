@@ -1,5 +1,5 @@
 NO             bluestone.xpm
-F 44, 55,66
+F 0, 0, 0
 
 
 
@@ -16,7 +16,7 @@ WE               purplestone.xpm
 
 
 
-C  32  ,   4   ,     5                                
+C  255  ,   255   ,     255                                
 
 
 

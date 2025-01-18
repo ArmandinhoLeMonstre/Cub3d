@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 01:59:41 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/18 16:44:39 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:34:53 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	main(int ac, char **av)
 		check_filetype(av[1]);
 		game.file = av[1];
 		parsing(av[1], &game);
+		game.floor = ft_atoi_base(get_floor(&game), "0123456789ABCDEF");
+		game.ceiling = ft_atoi_base(get_ceiling(&game), "0123456789ABCDEF");
 		if (ft_create_map(ft_open(av[1]), &game)
 			|| ft_findpalyer(game.map.map, &game))
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 02:20:43 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/18 04:30:50 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 14:38:40 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,4 +115,3 @@ void	ft_init_pars(t_game *game)
 	game->p1.posx = 0;
 	game->p1.posy = 0;
 }
-

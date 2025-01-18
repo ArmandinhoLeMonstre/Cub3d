@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   putnbr_base.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 18:20:10 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/16 18:20:17 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 14:39:39 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,11 @@ int	ft_exposant(int nb, int exp)
 	return (nb);
 }
 
-
 int	ft_is_valid(char *base)
 {
 	int	i;
 	int	j;
-	//int	len_base;
 
-	//len_base = ft_strlen2(base, base);
 	i = 0;
 	while (base[i])
 	{

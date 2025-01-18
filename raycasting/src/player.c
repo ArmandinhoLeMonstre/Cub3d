@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:48:10 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/18 17:06:15 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:34:26 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	facing(t_game *game)
 		facing2(game);
 }
 
-void init_player(t_game *game)
+void	init_player(t_game *game)
 {
 	facing(game);
 	game->p1.game = game;

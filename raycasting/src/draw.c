@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
+/*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:14:07 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/18 07:28:37 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 16:59:30 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,18 @@ t_wall	*wall_side(t_game *game, t_draw *draw)
 
 int	get_color(t_game *game, t_draw *draw, int color)
 {
-	int		texY;
+	int		tex_y;
 	int		k;
 	t_wall	*wall;
 
-	texY = (int)draw->texPos & (64 - 1);
+	tex_y = (int)draw->texPos & (64 - 1);
 	k = 0;
 	draw->texPos += draw->step;
 	color = 0;
 	wall = wall_side(game, draw);
 	while (k < wall->info)
 	{
-		if (wall->wall[texY][draw->texX] == wall->col[k].c)
+		if (wall->wall[tex_y][draw->tex_x] == wall->col[k].c)
 		{
 			color = wall->col[k].id;
 			break ;
@@ -72,7 +72,7 @@ void	draw_game(t_game *game, t_draw *draw, int x)
 	y = -1;
 	color = 0;
 	while (++y < draw->drawStart)
-		my_mlx_pixel_put(&game->img, x, y, 0xFFFFFF);
+		my_mlx_pixel_put(&game->img, x, y, game->ceiling);
 	y--;
 	while (y++ <= draw->drawEnd)
 	{
@@ -81,5 +81,5 @@ void	draw_game(t_game *game, t_draw *draw, int x)
 	}
 	y--;
 	while (y++ < HEIGHT)
-		my_mlx_pixel_put(&game->img, x, y, 0xFF0000);
+		my_mlx_pixel_put(&game->img, x, y, game->floor);
 }
