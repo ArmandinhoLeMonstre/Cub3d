@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 20:47:09 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/18 17:07:41 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:34:05 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int mouse_move(int x, int y, t_player *player)
     }
 	int deltaX;
 	deltaX = 0;
-	if (x > lastMouseX)
+	if (x < lastMouseX)
 		deltaX = 1;
 	else
 		deltaX = -1;

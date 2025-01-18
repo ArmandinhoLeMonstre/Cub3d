@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:14:07 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/18 18:25:54 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:32:40 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ t_wall	*wall_side(t_game *game, t_draw *draw)
 	if (draw->side == 1)
 	{
 		if (draw->stepY == -1)
-			wall = &game->wall_north;
-		else
 			wall = &game->wall_south;
+		else
+			wall = &game->wall_north;
 	}
 	else
 	{
 		if (draw->stepX == -1)
-			wall = &game->wall_west;
-		else
 			wall = &game->wall_east;
+		else
+			wall = &game->wall_west;
 	}
 	return (wall);
 }
