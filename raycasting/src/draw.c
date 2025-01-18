@@ -6,7 +6,7 @@
 /*   By: armitite <armitite@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:14:07 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/18 16:59:30 by armitite         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:25:54 by armitite         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ t_wall	*wall_side(t_game *game, t_draw *draw)
 	if (draw->side == 1)
 	{
 		if (draw->stepY == -1)
-			wall = &game->wall_west;
+			wall = &game->wall_north;
 		else
-			wall = &game->wall_east;
+			wall = &game->wall_south;
 	}
 	else
 	{
 		if (draw->stepX == -1)
-			wall = &game->wall_north;
+			wall = &game->wall_west;
 		else
-			wall = &game->wall_south;
+			wall = &game->wall_east;
 	}
 	return (wall);
 }
