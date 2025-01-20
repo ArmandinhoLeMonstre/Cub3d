@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 18:01:27 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/18 21:02:38 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/20 19:23:41 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,8 @@
 
 int	key_true(int keycode, t_player *player)
 {
-	static int	ye;
-
-	if (ye == -1)
-	{
-		player->game->p1.posx -= 0.5;
-		player->game->p1.posy -= 0.5;
-		ye = 0;
-	}
-	if (keycode == 65307) //pour esc, pas oublier de free
+	printf("uio\n");
+	if (keycode == 65307)
 		ft_exit(player->game);
 	if (keycode == 119)
 		player->p_up = 1;

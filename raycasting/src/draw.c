@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:14:07 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/18 21:01:23 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/20 18:02:27 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
-	char	*dst;
+	int	index;
 
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int *) dst = color;
+	if (x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
+		return ;
+	index = y * img->line_length + x * img->bits_per_pixel / 8;
+	img->addr[index] = color & 0xFF;
+	img->addr[index + 1] = (color >> 8) & 0xFF;
+	img->addr[index + 2] = (color >> 16) & 0xFF;
 }
 
 t_wall	*wall_side(t_game *game, t_draw *draw)
@@ -71,10 +75,9 @@ void	draw_game(t_game *game, t_draw *draw, int x)
 
 	y = -1;
 	color = 0;
-	printf("X:%d\n", x * 64);
 	while (++y < draw->drawStart)
-		if (!(y > HEIGHT || x > WIDTH || x < 0 || y < 0))
-			my_mlx_pixel_put(&game->img, x, y, game->ceiling);
+		// if (!(y > HEIGHT || x > WIDTH || x < 0 || y < 0))
+		my_mlx_pixel_put(&game->img, x, y, game->ceiling);
 	y--;
 	while (y++ <= draw->drawEnd)
 	{

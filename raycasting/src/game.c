@@ -6,7 +6,7 @@
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 20:47:09 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/18 20:57:37 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/20 19:37:36 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,23 @@ void	clear_image(t_game *game)
 	}
 }
 
-int peutetre(t_game *game)
+int	peutetre(t_game *game)
 {
 	int			x;
 	t_draw		draw;
 
 	x = -1;
 	clear_image(game);
-	while (++x < WIDTH - 2)
+	while (++x < WIDTH)
 	{
 		wall_dist(game, &draw, x);
 		wall_size(game, &draw);
 		draw_game(game, &draw, x);
 	}
+	printf("dsl\n");
 	move_player(&game->p1);
 	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
-	draw_map(game);
+	// draw_map(game);
 	// mlx_put_image_to_window(game->mlx, game->win, game->minimap.img, 0, 0);
 	return (0);
 }
@@ -66,34 +67,34 @@ int	ft_exit(t_game *game)
 	exit(0);
 }
 
-int mouse_move(int x, int y, t_player *player)
+int	mouse_move(int x, int y, t_player *player)
 {
+	static int	lastmousex = -1;
+	int			deltax;
+	double		rot_speed;
+	double		old_dirx;
+	double		old_planex;
+
 	(void)y;
-    static int lastMouseX = -1;
-    if (lastMouseX == -1) {
-        lastMouseX = x;
-        return 0;
-    }
-	int deltaX;
-	deltaX = 0;
-	if (x < lastMouseX)
-		deltaX = 1;
+	if (lastmousex == -1)
+	{
+		lastmousex = x;
+		return (0);
+	}
+	deltax = 0;
+	if (x > lastmousex)
+		deltax = 1;
 	else
-		deltaX = -1;
-    lastMouseX = x;
-
-    double rot_speed = 0.005 * deltaX;
-
-    // Rotate the camera direction
-    double oldDirX = player->dirx;
-    player->dirx = player->dirx * cos(-rot_speed) - player->diry * sin(-rot_speed);
-    player->diry = oldDirX * sin(-rot_speed) + player->diry * cos(-rot_speed);
-
-    // Rotate the camera plane
-    double oldPlaneX = player->planex;
-    player->planex = player->planex * cos(-rot_speed) - player->planey * sin(-rot_speed);
-    player->planey = oldPlaneX * sin(-rot_speed) + player->planey * cos(-rot_speed);
-    return 0;
+		deltax = -1;
+	lastmousex = x;
+	rot_speed = 0.01 * deltax;
+	old_dirx = player->dirx;
+	player->dirx = player->dirx * cos(-rot_speed) - player->diry * sin(-rot_speed);
+	player->diry = old_dirx * sin(-rot_speed) + player->diry * cos(-rot_speed);
+	old_planex = player->planex;
+	player->planex = player->planex * cos(-rot_speed) - player->planey * sin(-rot_speed);
+	player->planey = old_planex * sin(-rot_speed) + player->planey * cos(-rot_speed);
+	return (0);
 }
 
 void	game_loop(t_game *game)
