@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   cub3d.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -56,27 +56,27 @@ typedef struct s_img
 
 typedef struct s_draw
 {
-	double	cameraX;
-	double	rayDirX;
-	double	rayDirY;
-	int		mapX;
-	int		mapY;
-	double	sideDistX;
-	double	sideDistY;
-	double	deltaDistX;
-	double	deltaDistY;
-	int		stepX;
-	int		stepY;
+	double	camerax;
+	double	raydirx;
+	double	raydiry;
+	int		mapx;
+	int		mapy;
+	double	sidedistx;
+	double	sidedisty;
+	double	deltadistx;
+	double	deltadisty;
+	int		stepx;
+	int		stepy;
 	int		hit;
 	int		side;
-	double	perpWallDist;
-	int		lineHeight;
-	int		drawStart;
-	int		drawEnd;
-	double	wallX;
+	double	perpwalldist;
+	int		lineheight;
+	int		drawstart;
+	int		drawend;
+	double	wallx;
 	int		tex_x;
 	double	step;
-	double	texPos;
+	double	texpos;
 }	t_draw;
 
 typedef struct s_player
@@ -128,7 +128,7 @@ int		ft_game(t_game *game);
 int		parse_xpm(t_wall *wall, char *file);
 int		ft_atoi_base(char *str, char *base);
 // Player
-void 	init_player(t_game *game);
+void	init_player(t_game *game);
 
 // Raycasting
 void	wall_dist(t_game *game, t_draw *draw, int x);
@@ -169,9 +169,7 @@ int		ft_findo(char **map, t_game *game);
 int		ft_backtrack(int x, int y, t_game *game, char **plan);
 void	ft_mapinfo(int fd, t_game *game, char *str);
 void	ft_checkrgb(char *str, int len);
-int		ft_findpalyer(char **map, t_game *game);
+int		ft_findpalyer(char **map, t_game *game, int y);
 
 //parsing
 void	parsing(char *file, t_game *game);
-
-void	draw_map(t_game *game);

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parsing_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 02:15:11 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/29 15:43:36 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/29 17:45:16 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../include/cub3d_bonus.h"
 
 void	ft_setcolor(char *str, int len, t_game *game, int id)
 {

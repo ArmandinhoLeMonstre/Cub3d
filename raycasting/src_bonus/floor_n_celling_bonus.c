@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   floor_n_celling.c                                  :+:      :+:    :+:   */
+/*   floor_n_celling_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 16:45:26 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/29 15:43:36 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/29 17:45:14 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../include/cub3d_bonus.h"
 
 char	*add_to_string(char c, char *str)
 {

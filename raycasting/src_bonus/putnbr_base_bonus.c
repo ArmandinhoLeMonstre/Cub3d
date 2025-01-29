@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putnbr_base.c                                      :+:      :+:    :+:   */
+/*   putnbr_base_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 18:20:10 by rafnasci          #+#    #+#             */
-/*   Updated: 2025/01/29 15:43:36 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/29 17:45:17 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../include/cub3d_bonus.h"
 
 int	ft_strlen2(char *str, char *base)
 {

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_xpm.c                                        :+:      :+:    :+:   */
+/*   parse_xpm_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rafnasci <rafnasci@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:22:39 by armitite          #+#    #+#             */
-/*   Updated: 2025/01/29 18:46:27 by rafnasci         ###   ########.fr       */
+/*   Updated: 2025/01/29 18:46:33 by rafnasci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../include/cub3d_bonus.h"
 
 int	check_pixels(char **pixel_data)
 {
